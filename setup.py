@@ -11,7 +11,7 @@ setup(
     ],
     entry_points={
         'course_key': [
-            'ccx-v1 = ccx_keys.locator.CCXLocator',
+            'ccx-v1 = ccx_keys.locator:CCXLocator',
         ],
     }
 
