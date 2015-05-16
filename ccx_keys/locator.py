@@ -89,8 +89,21 @@ class CCXLocator(CourseLocator, CCXKey):
         if self.course and self.run:
             parts.extend([self.org, self.course, self.run])
             if self.branch:
-                parts.append(u"{prefix}@{branch}".format(prefix=self.BRANCH_PREFIX, branch=self.branch))
+                parts.append(
+                    # pylint: disable=no-member
+                    u"{prefix}@{branch}".format(
+                        prefix=self.BRANCH_PREFIX, branch=self.branch
+                    )
+                )
         if self.version_guid:
-            parts.append(u"{prefix}@{guid}".format(prefix=self.VERSION_PREFIX, guid=self.version_guid))
-        parts.append(u"{prefix}@{ccx}".format(prefix=self.CCX_PREFIX, ccx=self.ccx))
+            parts.append(
+                # pylint: disable=no-member
+                u"{prefix}@{guid}".format(
+                    prefix=self.VERSION_PREFIX, guid=self.version_guid
+                )
+            )
+        parts.append(
+            u"{prefix}@{ccx}".format(
+                prefix=self.CCX_PREFIX, ccx=self.ccx)
+        )
         return u"+".join(parts)
