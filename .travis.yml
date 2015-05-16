@@ -1,0 +1,12 @@
+language: python
+python:
+  - "2.7"
+before_install:
+  - git fetch origin master:refs/remotes/origin/master
+install:
+  - pip install -r test-requirements.txt
+  - pip install coveralls
+script:
+  - scripts/coverage
+after_success:
+  - coveralls
