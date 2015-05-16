@@ -5,6 +5,5 @@ pep8
 pylint >= 1.1.0
 ddt
 diff-cover >= 0.2.1
-sphinx
 -e .
 -r requirements.txt
