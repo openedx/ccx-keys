@@ -4,8 +4,10 @@ import re
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.locator import CourseLocator
 
+from ccx_keys.key import CCXKey
 
-class CCXLocator(CourseLocator):
+
+class CCXLocator(CourseLocator, CCXKey):
     """Concrete implementation of an Opaque Key for CCX courses"""
 
     CANONICAL_NAMESPACE = 'ccx-v1'
@@ -64,6 +66,20 @@ class CCXLocator(CourseLocator):
             deprecated=deprecated,
             **kwargs
         )
+
+    @classmethod
+    def from_course_locator(cls, course_locator, ccx):
+        """Construct a CCXLocator given a CourseLocator and a ccx id"""
+        new_obj = cls(
+            org=course_locator.org,
+            course=course_locator.course,
+            run=course_locator.run,
+            branch=course_locator.branch,
+            version_guid=course_locator.version_guid,
+            deprecated=course_locator.deprecated,
+            ccx=ccx,
+        )
+        return new_obj
 
     def _to_string(self):
         """
