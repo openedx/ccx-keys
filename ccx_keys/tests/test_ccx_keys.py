@@ -1,6 +1,8 @@
 import ddt
 from bson.objectid import ObjectId
 from opaque_keys import InvalidKeyError
+from opaque_keys.edx.keys import CourseKey
+from opaque_keys.edx.locator import CourseLocator
 from opaque_keys.edx.tests import LocatorBaseTest, TestDeprecated
 
 from ccx_keys.locator import CCXLocator
@@ -17,7 +19,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         org = 'mit.eecs'
         course = '6002x'
         run = '2014_T2'
-        ccx = 1
+        ccx = '1'
         testurn = '{}+{}+{}+{}@{}'.format(
             org, course, run, CCXLocator.CCX_PREFIX, ccx
         )
@@ -34,7 +36,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
     def test_ccx_constructor_version_guid(self):
         """Verify a locator constructed with only version_guid is correct"""
         test_id_loc = '519665f6223ebd6980884f2b'
-        ccx = 1
+        ccx = '1'
         expected_urn = '{}@{}+{}@{}'.format(
             CCXLocator.VERSION_PREFIX, test_id_loc,
             CCXLocator.CCX_PREFIX, ccx
@@ -56,7 +58,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         course = '6002x'
         run = '2014_T2'
         test_branch = 'published'
-        ccx = 1
+        ccx = '1'
         expected_urn = '{}+{}+{}+{}@{}+{}@{}'.format(
             org, course, run,
             CCXLocator.BRANCH_PREFIX, test_branch,
@@ -85,7 +87,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         course = '~6002x'
         run = '2014_T2'
         branch = 'draft-1'
-        ccx = 1
+        ccx = '1'
         expected_urn = '{}+{}+{}+{}@{}+{}@{}+{}@{}'.format(
             org, course, run,
             CCXLocator.BRANCH_PREFIX, branch,
@@ -137,3 +139,69 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             CCXLocator(**use_fields)
 
         self.assertTrue(str(CCXLocator) in str(cm.exception))
+
+    @ddt.unpack
+    @ddt.data(
+        {'fields': ('version_guid',),
+         'url_template': '{CANONICAL_NAMESPACE}:{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+         },
+        {'fields': ('org', 'course', 'run'),
+         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{CCX_PREFIX}@{ccx}',
+         },
+        {'fields': ('org', 'course', 'run', 'branch'),
+         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{CCX_PREFIX}@{ccx}',
+         },
+        {'fields': ('org', 'course', 'run', 'version_guid'),
+         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+         },
+        {'fields': ('org', 'course', 'run', 'branch', 'version_guid'),
+         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',},
+    )
+    def test_locator_from_good_url(self, fields, url_template):
+        available_fields = {
+            'version_guid': '519665f6223ebd6980884f2b',
+            'org': 'mit.eecs',
+            'course': '6002x',
+            'run': '2014_T2',
+            'branch': 'draft-1',
+            'ccx': '1',
+            'CANONICAL_NAMESPACE': CCXLocator.CANONICAL_NAMESPACE,
+            'VERSION_PREFIX': CCXLocator.VERSION_PREFIX,
+            'BRANCH_PREFIX': CCXLocator.BRANCH_PREFIX,
+            'CCX_PREFIX': CCXLocator.CCX_PREFIX,
+        }
+        this_url = url_template.format(**available_fields)
+        testobj = CourseKey.from_string(this_url)
+        use_keys = dict(
+            (k, v) for k, v in available_fields.items() if k in fields
+        )
+
+        if 'version_guid' in use_keys:
+            use_keys['version_guid'] = ObjectId(use_keys['version_guid'])
+        self.check_course_locn_fields(testobj, **use_keys)
+        self.assertEqual(testobj.ccx, available_fields['ccx'])
+
+    @ddt.data(
+        ('version_guid'),
+        ('org', 'course', 'run'),
+        ('org', 'course', 'run', 'branch'),
+        ('org', 'course', 'run', 'version_guid'),
+        ('org', 'course', 'run', 'branch', 'version_guid'),
+    )
+    def test_from_course_locator_constructor(self, fields):
+        available_fields = {
+            'version_guid': '519665f6223ebd6980884f2b',
+            'org': 'mit.eecs',
+            'course': '6002x',
+            'run': '2014_T2',
+            'branch': 'draft-1',
+        }
+        ccx = '1'
+        use_fields = dict((k, v) for k, v in available_fields.items() if k in fields)
+        course_id = CourseLocator(**use_fields)
+        testobj = CCXLocator.from_course_locator(course_id, ccx)
+
+        if 'version_guid' in use_fields:
+            use_fields['version_guid'] = ObjectId(use_fields['version_guid'])
+        self.check_course_locn_fields(testobj, **use_fields)
+        self.assertEqual(testobj.ccx, ccx)
