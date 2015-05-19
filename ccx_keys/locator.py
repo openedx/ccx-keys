@@ -2,7 +2,8 @@
 import re
 
 from opaque_keys import InvalidKeyError
-from opaque_keys.edx.locator import CourseLocator
+from opaque_keys.edx.locator import CourseLocator, BlockUsageLocator
+from opaque_keys.edx.keys import UsageKey
 
 from ccx_keys.key import CCXKey
 
@@ -11,7 +12,7 @@ class CCXLocator(CourseLocator, CCXKey):
     """Concrete implementation of an Opaque Key for CCX courses"""
 
     CANONICAL_NAMESPACE = 'ccx-v1'
-    KEY_FIELDS = ('org', 'course', 'run', 'branch', 'version_guid', 'ccx')
+    KEY_FIELDS = CourseLocator.KEY_FIELDS + ('ccx', )
     __slots__ = KEY_FIELDS
     CHECKED_INIT = False
     CCX_PREFIX = 'ccx'
@@ -45,7 +46,6 @@ class CCXLocator(CourseLocator, CCXKey):
         org=None,
         course=None,
         run=None,
-        ccx=None,
         branch=None,
         version_guid=None,
         deprecated=False,
@@ -53,14 +53,13 @@ class CCXLocator(CourseLocator, CCXKey):
     ):
         """constructor for a ccx locator"""
         # for a ccx locator we require a ccx id to be passed.
-        if ccx is None:
+        if 'ccx' not in kwargs:
             raise InvalidKeyError(self.__class__, "ccx must be set")
 
         super(CCXLocator, self).__init__(
             org=org,
             course=course,
             run=run,
-            ccx=ccx,
             branch=branch,
             version_guid=version_guid,
             deprecated=deprecated,
