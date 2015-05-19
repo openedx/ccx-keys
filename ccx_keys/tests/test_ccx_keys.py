@@ -1,11 +1,13 @@
 import ddt
 from bson.objectid import ObjectId
+from itertools import product
 from opaque_keys import InvalidKeyError
-from opaque_keys.edx.keys import CourseKey
+from opaque_keys.edx.keys import CourseKey, UsageKey
 from opaque_keys.edx.locator import CourseLocator
 from opaque_keys.edx.tests import LocatorBaseTest, TestDeprecated
 
 from ccx_keys.locator import CCXLocator
+from ccx_keys.locator import CCXBlockUsageLocator
 
 
 @ddt.ddt
@@ -205,3 +207,130 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             use_fields['version_guid'] = ObjectId(use_fields['version_guid'])
         self.check_course_locn_fields(testobj, **use_fields)
         self.assertEqual(testobj.ccx, ccx)
+
+
+@ddt.ddt
+class TestCCXBlockUsageLocator(LocatorBaseTest):
+    """
+    Tests of :class:`.CCXBlockUsageLocator`
+    """
+    @ddt.data(
+        # do we need or even want to support deprecated forms of urls?
+        "ccx-block-v1:org+course+run+ccx@1+{}@category+{}@name".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category+{}@name".format(CourseLocator.BRANCH_PREFIX, CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
+        "i4x://org/course/category/name@revision",
+        # now try the extended char sets - we expect that "%" should be OK in deprecated-style ids,
+        # but should not be valid in new-style ids
+        "ccx-block-v1:org.dept.sub-prof+course.num.section-4+run.hour.min-99+ccx@1+{}@category+{}@name:12.33-44".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
+        "i4x://org.dept%sub-prof/course.num%section-4/category/name:12%33-44",
+    )
+    def test_string_roundtrip(self, url):
+        actual = unicode(UsageKey.from_string(url))
+        self.assertEquals(
+            url,
+            actual
+        )
+
+    @ddt.data(
+        "ccx-block-v1:org+course+run+ccx@1+{}@category".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX, CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
+    )
+    def test_missing_block_id(self, url):
+        with self.assertRaises(InvalidKeyError):
+            UsageKey.from_string(url)
+
+    @ddt.data(
+        ((), {
+            'org': 'org',
+            'course': 'course',
+            'run': 'run',
+            'ccx': '1',
+            'category': 'category',
+            'name': 'name',
+        }, 'org', 'course', 'run', '1', 'category', 'name', None),
+        ((), {
+            'org': 'org',
+            'course': 'course',
+            'run': 'run',
+            'ccx': '1',
+            'category': 'category',
+            'name': 'name:more_name',
+        }, 'org', 'course', 'run', '1', 'category', 'name:more_name', None),
+        ([], {}, 'org', 'course', 'run', '1', 'category', 'name', None),
+    )
+    @ddt.unpack
+    def test_valid_locations(self, args, kwargs, org, course, run, ccx, category, name, revision):  # pylint: disable=unused-argument
+        course_key = CCXLocator(org=org, course=course, run=run, branch=revision, ccx=ccx)
+        locator = CCXBlockUsageLocator(course_key, block_type=category, block_id=name, )
+        self.assertEquals(org, locator.org)
+        self.assertEquals(course, locator.course)
+        self.assertEquals(run, locator.run)
+        self.assertEquals(ccx, locator.ccx)
+        self.assertEquals(category, locator.block_type)
+        self.assertEquals(name, locator.block_id)
+        self.assertEquals(revision, locator.branch)
+
+    @ddt.data(
+        (("foo",), {}),
+        (["foo", "bar"], {}),
+        (["foo", "bar", "baz", "blat/blat", "foo"], {}),
+        (["foo", "bar", "baz", "blat", "foo/bar"], {}),
+        (["foo", "bar", "baz", "blat:blat", "foo:bar"], {}),  # ':' ok in name, not in category
+        (('org', 'course', 'run', 'category', 'name with spaces', 'revision'), {}),
+        (('org', 'course', 'run', 'category', 'name/with/slashes', 'revision'), {}),
+        (('org', 'course', 'run', 'category', 'name', u'\xae'), {}),
+        (('org', 'course', 'run', 'category', u'\xae', 'revision'), {}),
+        ((), {
+            'tag': 'tag',
+            'course': 'course',
+            'category': 'category',
+            'name': 'name@more_name',
+            'org': 'org'
+        }),
+        ((), {
+            'tag': 'tag',
+            'course': 'course',
+            'category': 'category',
+            'name': 'name ',   # extra space
+            'org': 'org'
+        }),
+    )
+    @ddt.unpack
+    def test_invalid_locations(self, *args, **kwargs):
+        with self.assertRaises(TypeError):
+            CCXBlockUsageLocator(*args, **kwargs)
+
+
+
+    @ddt.data(
+        ('course', 'newvalue'),
+        ('org', 'newvalue'),
+        ('run', 'newvalue'),
+        ('branch', 'newvalue'),
+        ('version_guid', ObjectId('519665f6223ebd6980884f2b')),
+        ('block_id', 'newvalue'),
+        ('block_type', 'newvalue'),
+        ('ccx', '2'),
+    )
+    @ddt.unpack
+    def test_replacement(self, key, newvalue):
+        course_key = CCXLocator('org', 'course', 'run', 'rev', ccx='1', deprecated=False)
+        kwargs = {key: newvalue}
+        self.assertEquals(
+            getattr(CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=False).replace(**kwargs), key),
+            newvalue
+        )
+
+        with self.assertRaises(InvalidKeyError):
+            CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=True).replace(block_id=u'name\xae')
+
+    @ddt.data(*product((True, False), repeat=2))
+    @ddt.unpack
+    def test_map_into_course_location(self, deprecated_source, deprecated_dest):
+        original_course = CCXLocator('org', 'course', 'run', ccx='1', deprecated=deprecated_source)
+        new_course = CCXLocator('edX', 'toy', '2012_Fall', ccx='1', deprecated=deprecated_dest)
+        loc = CCXBlockUsageLocator(original_course, 'cat', 'name:more_name', deprecated=deprecated_source)
+        expected = CCXBlockUsageLocator(new_course, 'cat', 'name:more_name', deprecated=deprecated_dest)
+        actual = loc.map_into_course(new_course)
+
+        self.assertEquals(expected, actual)

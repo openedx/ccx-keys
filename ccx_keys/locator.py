@@ -84,25 +84,62 @@ class CCXLocator(CourseLocator, CCXKey):
         """
         Return a string representing this location.
         """
-        parts = []
-        if self.course and self.run:
-            parts.extend([self.org, self.course, self.run])
-            if self.branch:
-                parts.append(
-                    # pylint: disable=no-member
-                    u"{prefix}@{branch}".format(
-                        prefix=self.BRANCH_PREFIX, branch=self.branch
-                    )
-                )
-        if self.version_guid:
-            parts.append(
-                # pylint: disable=no-member
-                u"{prefix}@{guid}".format(
-                    prefix=self.VERSION_PREFIX, guid=self.version_guid
-                )
-            )
-        parts.append(
-            u"{prefix}@{ccx}".format(
-                prefix=self.CCX_PREFIX, ccx=self.ccx)
+        string = super(CCXLocator, self)._to_string()
+        # append the identifier for the ccx to the existing course string
+        string += u"+{prefix}@{ccx}".format(
+            prefix=self.CCX_PREFIX, ccx=self.ccx
         )
-        return u"+".join(parts)
+        return string
+
+
+class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
+    """Concrete implementation of a usage key for blocks in CCXs"""
+
+    CANONICAL_NAMESPACE = 'ccx-block-v1'    
+
+    URL_RE = re.compile(
+        '^' + CCXLocator.URL_RE_SOURCE + '$', re.IGNORECASE | re.VERBOSE | re.UNICODE
+    )
+
+    def replace(self, **kwargs):
+        # BlockUsageLocator allows for the replacement of 'KEY_FIELDS' in 'self.course_key'.
+        # This includes the deprecated 'KEY_FIELDS' of CourseLocator `'revision'` and `'version'`.
+        course_key_kwargs = {}
+        for key in CCXLocator.KEY_FIELDS:
+            if key in kwargs:
+                course_key_kwargs[key] = kwargs.pop(key)
+        # XXX: do we need these protections against deprecated forms of these arguments?
+        if 'revision' in kwargs and 'branch' not in course_key_kwargs:
+            course_key_kwargs['branch'] = kwargs.pop('revision')
+        if 'version' in kwargs and 'version_guid' not in course_key_kwargs:
+            course_key_kwargs['version_guid'] = kwargs.pop('version')
+        if len(course_key_kwargs) > 0:
+            kwargs['course_key'] = self.course_key.replace(**course_key_kwargs)
+
+        # XXX: do we need these protections against deprecated forms of these arguments?
+        # `'name'` and `'category'` are deprecated `KEY_FIELDS`.
+        # Their values are reassigned to the new keys.
+        if 'name' in kwargs and 'block_id' not in kwargs:
+            kwargs['block_id'] = kwargs.pop('name')
+        if 'category' in kwargs and 'block_type' not in kwargs:
+            kwargs['block_type'] = kwargs.pop('category')
+        return super(CCXBlockUsageLocator, self).replace(**kwargs)
+
+    @classmethod
+    def _from_string(cls, serialized):
+        """
+        Requests CCXLocator to deserialize its part and then adds the local
+        deserialization of block
+        """
+        # Allow access to _from_string protected method
+        course_key = CCXLocator._from_string(serialized)  # pylint: disable=protected-access
+        parsed_parts = cls.parse_url(serialized)
+        block_id = parsed_parts.get('block_id', None)
+        if block_id is None:
+            raise InvalidKeyError(cls, serialized)
+        return cls(course_key, parsed_parts.get('block_type'), block_id)
+
+    @property
+    def ccx(self):
+        """Returns the ccx for this object's course_key."""
+        return self.course_key.ccx

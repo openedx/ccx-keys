@@ -13,6 +13,9 @@ setup(
         'course_key': [
             'ccx-v1 = ccx_keys.locator:CCXLocator',
         ],
+        'usage_key': [
+            'ccx-block-v1 = ccx_keys.locator:CCXBlockUsageLocator',
+        ]
     }
 
 )
