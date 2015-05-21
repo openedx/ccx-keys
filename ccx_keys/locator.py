@@ -56,6 +56,9 @@ class CCXLocator(CourseLocator, CCXKey):
         if 'ccx' not in kwargs:
             raise InvalidKeyError(self.__class__, "ccx must be set")
 
+        if deprecated:
+            raise InvalidKeyError(self.__class__, "cannot be deprecated")
+
         super(CCXLocator, self).__init__(
             org=org,
             course=course,
@@ -91,6 +94,15 @@ class CCXLocator(CourseLocator, CCXKey):
         )
         return string
 
+    def _to_deprecated_string(self):
+        """ CCXLocators are never deprecated. """
+        raise NotImplementedError
+
+    @classmethod
+    def _from_deprecated_string(cls, serialized):
+        """ CCXLocators are never deprecated. """
+        raise NotImplementedError
+
 
 class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
     """Concrete implementation of a usage key for blocks in CCXs"""
@@ -108,21 +120,9 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         for key in CCXLocator.KEY_FIELDS:
             if key in kwargs:
                 course_key_kwargs[key] = kwargs.pop(key)
-        # XXX: do we need these protections against deprecated forms of these arguments?
-        if 'revision' in kwargs and 'branch' not in course_key_kwargs:
-            course_key_kwargs['branch'] = kwargs.pop('revision')
-        if 'version' in kwargs and 'version_guid' not in course_key_kwargs:
-            course_key_kwargs['version_guid'] = kwargs.pop('version')
         if len(course_key_kwargs) > 0:
             kwargs['course_key'] = self.course_key.replace(**course_key_kwargs)
 
-        # XXX: do we need these protections against deprecated forms of these arguments?
-        # `'name'` and `'category'` are deprecated `KEY_FIELDS`.
-        # Their values are reassigned to the new keys.
-        if 'name' in kwargs and 'block_id' not in kwargs:
-            kwargs['block_id'] = kwargs.pop('name')
-        if 'category' in kwargs and 'block_type' not in kwargs:
-            kwargs['block_type'] = kwargs.pop('category')
         return super(CCXBlockUsageLocator, self).replace(**kwargs)
 
     @classmethod
@@ -143,3 +143,12 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
     def ccx(self):
         """Returns the ccx for this object's course_key."""
         return self.course_key.ccx
+
+    def _to_deprecated_string(self):
+        """ CCXBlockUsageLocators are never deprecated. """
+        raise NotImplementedError
+
+    @classmethod
+    def _from_deprecated_string(cls, serialized):
+        """ CCXBlockUsageLocators are never deprecated."""
+        raise NotImplementedError

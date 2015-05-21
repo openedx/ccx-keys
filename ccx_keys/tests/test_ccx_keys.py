@@ -208,6 +208,28 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         self.check_course_locn_fields(testobj, **use_fields)
         self.assertEqual(testobj.ccx, ccx)
 
+    def test_ccx_constructor_deprecated(self):
+        """Verify that a CCXLocator cannot be built with deprecated=True"""
+        with self.assertRaises(InvalidKeyError):
+            CCXLocator(org='org', course='course', run='run', ccx='1', deprecated=True)
+
+    def test_ccx_from_deprecated_course_locator(self):
+        """Verify that a CCXLocator cannot be built from a deprecated course id"""
+        course_id = CourseLocator(org='org', course='course', run='run', deprecated=True)
+        with self.assertRaises(InvalidKeyError):
+            CCXLocator.from_course_locator(course_id, '1')
+
+    def test_ccx_from_deprecated_string(self):
+        """Verify that _from_deprecated_string raises NotImplemented"""
+        with self.assertRaises(NotImplementedError):
+            CCXLocator._from_deprecated_string('org/course/run/1')  # pylint: disable=protected-access
+
+    def test_ccx_to_deprecated_string(self):
+        """Verify that _from_deprecated_string raises NotImplemented"""
+        testme = CCXLocator(org='org', course='course', run='run', ccx='1')
+        with self.assertRaises(NotImplementedError):
+            testme._to_deprecated_string()  # pylint: disable=protected-access
+
 
 @ddt.ddt
 class TestCCXBlockUsageLocator(LocatorBaseTest):
@@ -324,13 +346,23 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         with self.assertRaises(InvalidKeyError):
             CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=True).replace(block_id=u'name\xae')
 
-    @ddt.data(*product((True, False), repeat=2))
-    @ddt.unpack
-    def test_map_into_course_location(self, deprecated_source, deprecated_dest):
-        original_course = CCXLocator('org', 'course', 'run', ccx='1', deprecated=deprecated_source)
-        new_course = CCXLocator('edX', 'toy', '2012_Fall', ccx='1', deprecated=deprecated_dest)
-        loc = CCXBlockUsageLocator(original_course, 'cat', 'name:more_name', deprecated=deprecated_source)
-        expected = CCXBlockUsageLocator(new_course, 'cat', 'name:more_name', deprecated=deprecated_dest)
+    def test_map_into_course_location(self):
+        original_course = CCXLocator('org', 'course', 'run', ccx='1')
+        new_course = CCXLocator('edX', 'toy', '2012_Fall', ccx='1')
+        loc = CCXBlockUsageLocator(original_course, 'cat', 'name:more_name')
+        expected = CCXBlockUsageLocator(new_course, 'cat', 'name:more_name')
         actual = loc.map_into_course(new_course)
 
         self.assertEquals(expected, actual)
+
+    def test_ccx_from_deprecated_string(self):
+        """Verify that _from_deprecated_string raises NotImplemented"""
+        with self.assertRaises(NotImplementedError):
+            CCXBlockUsageLocator._from_deprecated_string('org/course/run/1')  # pylint: disable=protected-access
+
+    def test_ccx_to_deprecated_string(self):
+        """Verify that _from_deprecated_string raises NotImplemented"""
+        ccx_id = CCXLocator(org='org', course='course', run='run', ccx='1')
+        loc = CCXBlockUsageLocator(ccx_id, 'cat', 'name')
+        with self.assertRaises(NotImplementedError):
+            loc._to_deprecated_string()  # pylint: disable=protected-access
