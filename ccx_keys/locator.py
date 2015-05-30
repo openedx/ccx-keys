@@ -2,7 +2,11 @@
 import re
 
 from opaque_keys import InvalidKeyError
-from opaque_keys.edx.locator import CourseLocator, BlockUsageLocator
+from opaque_keys.edx.locator import (
+    AssetLocator,
+    BlockUsageLocator,
+    CourseLocator,
+)
 from opaque_keys.edx.keys import UsageKey
 
 from ccx_keys.key import CCXKey
@@ -94,6 +98,22 @@ class CCXLocator(CourseLocator, CCXKey):
     def _from_deprecated_string(cls, serialized):
         """ CCXLocators are never deprecated. """
         raise NotImplementedError
+
+    def make_usage_key(self, block_type, block_id):
+        return CCXBlockUsageLocator(
+            course_key=self,
+            block_type=block_type,
+            block_id=block_id,
+            deprecated=self.deprecated,
+        )
+
+    def make_asset_key(self, asset_type, path):
+        return AssetLocator(
+            self.to_course_locator,
+            asset_type,
+            path,
+            deprecated=self.deprecated
+        )
 
 
 class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
