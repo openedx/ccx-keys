@@ -20,6 +20,7 @@ class CCXLocator(CourseLocator, CCXKey):
     __slots__ = KEY_FIELDS
     CHECKED_INIT = False
     CCX_PREFIX = 'ccx'
+    deprecated = False
 
     # pep8 and pylint don't agree on the indentation in this block; let's make
     # pep8 happy and ignore pylint as that's easier to do.
