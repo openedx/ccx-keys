@@ -110,7 +110,7 @@ class CCXLocator(CourseLocator, CCXKey):
 
     def make_asset_key(self, asset_type, path):
         return AssetLocator(
-            self.to_course_locator,
+            self.to_course_locator(),
             asset_type,
             path,
             deprecated=False
