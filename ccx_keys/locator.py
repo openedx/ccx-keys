@@ -66,6 +66,15 @@ class CCXLocator(CourseLocator, CCXKey):
         )
         return new_obj
 
+    def to_course_locator(self):
+        return CCXLocator(
+            org=self.org,
+            course=self.course,
+            run=self.run,
+            branch=self.branch,
+            version_guid=self.version_guid
+        )
+
     def _to_string(self):
         """
         Return a string representing this location.
