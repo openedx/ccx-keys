@@ -67,7 +67,7 @@ class CCXLocator(CourseLocator, CCXKey):
         return new_obj
 
     def to_course_locator(self):
-        return CCXLocator(
+        return CourseLocator(
             org=self.org,
             course=self.course,
             run=self.run,
