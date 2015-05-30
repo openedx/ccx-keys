@@ -104,7 +104,7 @@ class CCXLocator(CourseLocator, CCXKey):
             course_key=self,
             block_type=block_type,
             block_id=block_id,
-            deprecated=self.deprecated,
+            deprecated=False
         )
 
     def make_asset_key(self, asset_type, path):
@@ -112,7 +112,7 @@ class CCXLocator(CourseLocator, CCXKey):
             self.to_course_locator,
             asset_type,
             path,
-            deprecated=self.deprecated
+            deprecated=False
         )
 
 
