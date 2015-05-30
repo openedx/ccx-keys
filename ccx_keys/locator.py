@@ -41,33 +41,16 @@ class CCXLocator(CourseLocator, CCXKey):
         '^' + URL_RE_SOURCE + '$', re.IGNORECASE | re.VERBOSE | re.UNICODE
     )
 
-    def __init__(
-        self,
-        org=None,
-        course=None,
-        run=None,
-        branch=None,
-        version_guid=None,
-        deprecated=False,
-        **kwargs
-    ):
+    def __init__(self, **kwargs):
         """constructor for a ccx locator"""
         # for a ccx locator we require a ccx id to be passed.
         if 'ccx' not in kwargs:
             raise InvalidKeyError(self.__class__, "ccx must be set")
 
-        if deprecated:
+        if kwargs.get('deprecated', False):
             raise InvalidKeyError(self.__class__, "cannot be deprecated")
 
-        super(CCXLocator, self).__init__(
-            org=org,
-            course=course,
-            run=run,
-            branch=branch,
-            version_guid=version_guid,
-            deprecated=deprecated,
-            **kwargs
-        )
+        super(CCXLocator, self).__init__(**kwargs)
 
     @classmethod
     def from_course_locator(cls, course_locator, ccx):
