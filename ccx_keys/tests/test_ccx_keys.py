@@ -336,7 +336,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
     )
     @ddt.unpack
     def test_replacement(self, key, newvalue):
-        course_key = CCXLocator('org', 'course', 'run', 'rev', ccx='1', deprecated=False)
+        course_key = CCXLocator(org='org', course='course', run='run', branch='rev', ccx='1', deprecated=False)
         kwargs = {key: newvalue}
         self.assertEquals(
             getattr(CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=False).replace(**kwargs), key),
@@ -347,8 +347,8 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
             CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=True).replace(block_id=u'name\xae')
 
     def test_map_into_course_location(self):
-        original_course = CCXLocator('org', 'course', 'run', ccx='1')
-        new_course = CCXLocator('edX', 'toy', '2012_Fall', ccx='1')
+        original_course = CCXLocator(org='org', course='course', run='run', ccx='1')
+        new_course = CCXLocator(org='edX', course='toy', run='2012_Fall', ccx='1')
         loc = CCXBlockUsageLocator(original_course, 'cat', 'name:more_name')
         expected = CCXBlockUsageLocator(new_course, 'cat', 'name:more_name')
         actual = loc.map_into_course(new_course)
