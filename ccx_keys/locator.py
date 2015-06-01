@@ -157,6 +157,13 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         """Returns the ccx for this object's course_key."""
         return self.course_key.ccx
 
+    def to_block_locator(self):
+        return BlockUsageLocator(
+            course_key=self.course_key.to_course_locator(),
+            block_type=self.block_type,
+            block_id=self.block_id
+        )
+
     def _to_deprecated_string(self):
         """ CCXBlockUsageLocators are never deprecated. """
         raise NotImplementedError
