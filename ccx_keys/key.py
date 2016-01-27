@@ -1,9 +1,12 @@
-# -*- coding: utf-8 -*-
+""" Key module. """
+
 from abc import abstractproperty
+
 from opaque_keys.edx.keys import CourseKey
 
 
 class CCXKey(CourseKey):
+    """ Custom course key. """
 
     @abstractproperty
     def ccx(self):

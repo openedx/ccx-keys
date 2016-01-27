@@ -1,13 +1,13 @@
+""" Tests for the ccx_keys package. """
+
 import ddt
 from bson.objectid import ObjectId
-from itertools import product
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
 from opaque_keys.edx.locator import CourseLocator
 from opaque_keys.edx.tests import LocatorBaseTest, TestDeprecated
 
-from ccx_keys.locator import CCXLocator
-from ccx_keys.locator import CCXBlockUsageLocator
+from ccx_keys.locator import CCXBlockUsageLocator, CCXLocator
 
 
 @ddt.ddt
@@ -137,27 +137,34 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         use_fields = dict(
             (k, v) for k, v in available_fields.items() if k in fields
         )
-        with self.assertRaises(InvalidKeyError) as cm:
+        with self.assertRaises(InvalidKeyError) as context_manager:
             CCXLocator(**use_fields)
 
-        self.assertTrue(str(CCXLocator) in str(cm.exception))
+        self.assertIn(str(CCXLocator), str(context_manager.exception))
 
+    # pylint: disable=line-too-long
     @ddt.unpack
     @ddt.data(
-        {'fields': ('version_guid',),
-         'url_template': '{CANONICAL_NAMESPACE}:{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
-         },
-        {'fields': ('org', 'course', 'run'),
-         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{CCX_PREFIX}@{ccx}',
-         },
-        {'fields': ('org', 'course', 'run', 'branch'),
-         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{CCX_PREFIX}@{ccx}',
-         },
-        {'fields': ('org', 'course', 'run', 'version_guid'),
-         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
-         },
-        {'fields': ('org', 'course', 'run', 'branch', 'version_guid'),
-         'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',},
+        {
+            'fields': ('version_guid',),
+            'url_template': '{CANONICAL_NAMESPACE}:{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+        },
+        {
+            'fields': ('org', 'course', 'run'),
+            'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{CCX_PREFIX}@{ccx}',
+        },
+        {
+            'fields': ('org', 'course', 'run', 'branch'),
+            'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{CCX_PREFIX}@{ccx}',
+        },
+        {
+            'fields': ('org', 'course', 'run', 'version_guid'),
+            'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+        },
+        {
+            'fields': ('org', 'course', 'run', 'branch', 'version_guid'),
+            'url_template': '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+        },
     )
     def test_locator_from_good_url(self, fields, url_template):
         available_fields = {
@@ -236,14 +243,20 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
     """
     Tests of :class:`.CCXBlockUsageLocator`
     """
+
     @ddt.data(
         # do we need or even want to support deprecated forms of urls?
-        "ccx-block-v1:org+course+run+ccx@1+{}@category+{}@name".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
-        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category+{}@name".format(CourseLocator.BRANCH_PREFIX, CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
+        "ccx-block-v1:org+course+run+ccx@1+{}@category+{}@name".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX,
+                                                                       CCXBlockUsageLocator.BLOCK_PREFIX),
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category+{}@name".format(
+            CourseLocator.BRANCH_PREFIX,
+            CCXBlockUsageLocator.BLOCK_TYPE_PREFIX,
+            CCXBlockUsageLocator.BLOCK_PREFIX),
         "i4x://org/course/category/name@revision",
         # now try the extended char sets - we expect that "%" should be OK in deprecated-style ids,
         # but should not be valid in new-style ids
-        "ccx-block-v1:org.dept.sub-prof+course.num.section-4+run.hour.min-99+ccx@1+{}@category+{}@name:12.33-44".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
+        "ccx-block-v1:org.dept.sub-prof+course.num.section-4+run.hour.min-99+ccx@1+{}@category+{}@name:12.33-44".format(
+            CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
         "i4x://org.dept%sub-prof/course.num%section-4/category/name:12%33-44",
     )
     def test_string_roundtrip(self, url):
@@ -255,33 +268,19 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
 
     @ddt.data(
         "ccx-block-v1:org+course+run+ccx@1+{}@category".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
-        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX, CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX,
+                                                                           CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
     )
     def test_missing_block_id(self, url):
         with self.assertRaises(InvalidKeyError):
             UsageKey.from_string(url)
 
     @ddt.data(
-        ((), {
-            'org': 'org',
-            'course': 'course',
-            'run': 'run',
-            'ccx': '1',
-            'category': 'category',
-            'name': 'name',
-        }, 'org', 'course', 'run', '1', 'category', 'name', None),
-        ((), {
-            'org': 'org',
-            'course': 'course',
-            'run': 'run',
-            'ccx': '1',
-            'category': 'category',
-            'name': 'name:more_name',
-        }, 'org', 'course', 'run', '1', 'category', 'name:more_name', None),
-        ([], {}, 'org', 'course', 'run', '1', 'category', 'name', None),
+        ('org', 'course', 'run', '1', 'category', 'name', None),
+        ('org', 'course', 'run', '1', 'category', 'name:more_name', None),
     )
     @ddt.unpack
-    def test_valid_locations(self, args, kwargs, org, course, run, ccx, category, name, revision):  # pylint: disable=unused-argument
+    def test_valid_locations(self, org, course, run, ccx, category, name, revision):  # pylint: disable=unused-argument
         course_key = CCXLocator(org=org, course=course, run=run, branch=revision, ccx=ccx)
         locator = CCXBlockUsageLocator(course_key, block_type=category, block_id=name, )
         self.assertEquals(org, locator.org)
@@ -313,7 +312,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
             'tag': 'tag',
             'course': 'course',
             'category': 'category',
-            'name': 'name ',   # extra space
+            'name': 'name ',  # extra space
             'org': 'org'
         }),
     )
@@ -321,8 +320,6 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
     def test_invalid_locations(self, *args, **kwargs):
         with self.assertRaises(TypeError):
             CCXBlockUsageLocator(*args, **kwargs)
-
-
 
     @ddt.data(
         ('course', 'newvalue'),
