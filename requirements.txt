@@ -1,1 +1,2 @@
--e git+https://github.com/edx/opaque-keys.git@1254ed4d615a428591850656f39f26509b86d30a#egg=opaque-keys
+-e .
+-r test-requirements.txt

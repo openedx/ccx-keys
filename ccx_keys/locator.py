@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
+""" Locator module. """
 import re
 
 from opaque_keys import InvalidKeyError
+from opaque_keys.edx.keys import UsageKey
 from opaque_keys.edx.locator import (
     AssetLocator,
     BlockUsageLocator,
     CourseLocator,
 )
-from opaque_keys.edx.keys import UsageKey
 
 from ccx_keys.key import CCXKey
 
@@ -16,7 +17,7 @@ class CCXLocator(CourseLocator, CCXKey):
     """Concrete implementation of an Opaque Key for CCX courses"""
 
     CANONICAL_NAMESPACE = 'ccx-v1'
-    KEY_FIELDS = CourseLocator.KEY_FIELDS + ('ccx', )
+    KEY_FIELDS = CourseLocator.KEY_FIELDS + ('ccx',)
     __slots__ = KEY_FIELDS
     CHECKED_INIT = False
     CCX_PREFIX = 'ccx'
@@ -72,6 +73,10 @@ class CCXLocator(CourseLocator, CCXKey):
         return new_obj
 
     def to_course_locator(self):
+        """
+        Returns a CourseLocator representing this location.
+        """
+        # pylint: disable=no-member
         return CourseLocator(
             org=self.org,
             course=self.course,
@@ -120,7 +125,7 @@ class CCXLocator(CourseLocator, CCXKey):
 class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
     """Concrete implementation of a usage key for blocks in CCXs"""
 
-    CANONICAL_NAMESPACE = 'ccx-block-v1'    
+    CANONICAL_NAMESPACE = 'ccx-block-v1'
 
     URL_RE = re.compile(
         '^' + CCXLocator.URL_RE_SOURCE + '$', re.IGNORECASE | re.VERBOSE | re.UNICODE
@@ -158,6 +163,9 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         return self.course_key.ccx
 
     def to_block_locator(self):
+        """
+        Returns a BlockUsageLocator for this location.
+        """
         return BlockUsageLocator(
             course_key=self.course_key.to_course_locator(),
             block_type=self.block_type,

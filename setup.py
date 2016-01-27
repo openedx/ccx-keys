@@ -2,12 +2,12 @@ from setuptools import setup
 
 setup(
     name="ccx_keys",
-    version="0.1",
+    version="0.1.1",
     packages=[
         "ccx_keys",
     ],
     install_requires=[
-        "opaque_keys",
+        "edx-opaque-keys>=0.2.1,<1.0.0",
     ],
     entry_points={
         'course_key': [
@@ -17,5 +17,4 @@ setup(
             'ccx-block-v1 = ccx_keys.locator:CCXBlockUsageLocator',
         ]
     }
-
 )
