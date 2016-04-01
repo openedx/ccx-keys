@@ -9,3 +9,12 @@ script:
   - make quality
 after_success:
   - coveralls
+deploy:
+  provider: pypi
+  user: edx
+  password:
+    secure: mVj5hakAygVDTuNNni54BVfnA/BYIwuX7AYgnZHgy5e/FmxA5IF7JzDyGFxSXvtuI2qXBj9tQejSTe27a7qtRxAOdgarpaJK1vY5uuo751vuXct9LyrMOIYV3bNCa/y/cMfvPBl+OAlF75jxgb3HRUOgNq5fn8RYQ+uaUdJW+bzvKtaOJT3qZ6K3G87AtqL+yaWJqNHHbvY+olJHZVqiroNaKdHNegZacGx3YiIMxHF6//eMxQbl/PquZh2DMLXDPc2TwnLs1DJ2/O+Q/lVbA3BZZgivSe8rMMUtUQECopvy/+tK/3U/o0DXyQcoGaG0Ktp7jas+NI2vyanG6U3PI4i1HRjdecEtynow/ZvxHMPhLXNpHo/2m7DyQPux2bGhM5e5gW4JSARa+Ko6b+bs87BLCX9IQFMMymXxYGy+AP/f1YB8xrf6TyGTbcA+PT4Pkzmg/djvPqYOfnFNANibji0WpZ+aPZ47YI1mQUM1J60nQNvScL538JAT33c0wgVFf3x+0ZmY0MbwwIkHuFIsvrrKJHuGvNBQDIDAkPmVLGJt8YjQwwhuP4KHN6kCrdlVZzEXNDtwp+qbUK//4LzmM5id7fL7q0cdf4w2i2MW/scZ7jlc+Wo4plvYlb98y9qNJcyVw7ZT7mram0oupiF9e6QjH9QulbJ63/kNbEnAt1c=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: edx/ccx-keys
