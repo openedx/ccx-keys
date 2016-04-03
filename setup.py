@@ -7,7 +7,6 @@ setup(
         "ccx_keys",
     ],
     install_requires=[
-        "edx-opaque-keys>=0.2.1,<1.0.0",
     ],
     entry_points={
         'course_key': [
