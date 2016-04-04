@@ -1,6 +1,7 @@
 """ Tests for the ccx_keys package. """
 
 import ddt
+import six
 from bson.objectid import ObjectId
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
@@ -260,8 +261,8 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         "i4x://org.dept%sub-prof/course.num%section-4/category/name:12%33-44",
     )
     def test_string_roundtrip(self, url):
-        actual = unicode(UsageKey.from_string(url))
-        self.assertEquals(
+        actual = six.text_type(UsageKey.from_string(url))
+        self.assertEqual(
             url,
             actual
         )
@@ -283,13 +284,13 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
     def test_valid_locations(self, org, course, run, ccx, category, name, revision):  # pylint: disable=unused-argument
         course_key = CCXLocator(org=org, course=course, run=run, branch=revision, ccx=ccx)
         locator = CCXBlockUsageLocator(course_key, block_type=category, block_id=name, )
-        self.assertEquals(org, locator.org)
-        self.assertEquals(course, locator.course)
-        self.assertEquals(run, locator.run)
-        self.assertEquals(ccx, locator.ccx)
-        self.assertEquals(category, locator.block_type)
-        self.assertEquals(name, locator.block_id)
-        self.assertEquals(revision, locator.branch)
+        self.assertEqual(org, locator.org)
+        self.assertEqual(course, locator.course)
+        self.assertEqual(run, locator.run)
+        self.assertEqual(ccx, locator.ccx)
+        self.assertEqual(category, locator.block_type)
+        self.assertEqual(name, locator.block_id)
+        self.assertEqual(revision, locator.branch)
 
     @ddt.data(
         (("foo",), {}),
@@ -335,7 +336,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
     def test_replacement(self, key, newvalue):
         course_key = CCXLocator(org='org', course='course', run='run', branch='rev', ccx='1', deprecated=False)
         kwargs = {key: newvalue}
-        self.assertEquals(
+        self.assertEqual(
             getattr(CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=False).replace(**kwargs), key),
             newvalue
         )
@@ -350,7 +351,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         expected = CCXBlockUsageLocator(new_course, 'cat', 'name:more_name')
         actual = loc.map_into_course(new_course)
 
-        self.assertEquals(expected, actual)
+        self.assertEqual(expected, actual)
 
     def test_ccx_from_deprecated_string(self):
         """Verify that _from_deprecated_string raises NotImplemented"""
