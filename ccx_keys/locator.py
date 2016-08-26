@@ -40,11 +40,11 @@ class CCXLocator(CourseLocator, CCXKey):
         BLOCK_TYPE_PREFIX=CourseLocator.BLOCK_TYPE_PREFIX,
         BLOCK_PREFIX=CourseLocator.BLOCK_PREFIX,
         CCX_PREFIX=CCX_PREFIX,
-        SEP=r'(\+(?=.)|$)',  # Separator: requires a non-trailing '+' or end of string
+        SEP=r'(\+(?=.)|\Z)',  # Separator: requires a non-trailing '+' or end of string
     )
 
     URL_RE = re.compile(
-        '^' + URL_RE_SOURCE + '$', re.IGNORECASE | re.VERBOSE | re.UNICODE
+        '^' + URL_RE_SOURCE + r'\Z', re.IGNORECASE | re.VERBOSE | re.UNICODE
     )
 
     def __init__(self, **kwargs):
@@ -128,7 +128,7 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
     CANONICAL_NAMESPACE = 'ccx-block-v1'
 
     URL_RE = re.compile(
-        '^' + CCXLocator.URL_RE_SOURCE + '$', re.IGNORECASE | re.VERBOSE | re.UNICODE
+        '^' + CCXLocator.URL_RE_SOURCE + r'\Z', re.IGNORECASE | re.VERBOSE | re.UNICODE
     )
 
     def replace(self, **kwargs):
