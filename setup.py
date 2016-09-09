@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='edx-ccx-keys',
-    version='0.2.0',
+    version='0.2.1',
     author='edX',
     author_email='oscm@edx.org',
     description='Opaque key support custom courses on edX',

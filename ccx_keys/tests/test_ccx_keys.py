@@ -1,7 +1,8 @@
 """ Tests for the ccx_keys package. """
 
-import ddt
 import six
+import ddt
+import itertools  # pylint: disable=wrong-import-order
 from bson.objectid import ObjectId
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
@@ -190,6 +191,34 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             use_keys['version_guid'] = ObjectId(use_keys['version_guid'])
         self.check_course_locn_fields(testobj, **use_keys)
         self.assertEqual(testobj.ccx, available_fields['ccx'])
+
+    @ddt.data(*itertools.product(
+        (
+            '{CANONICAL_NAMESPACE}:{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+            '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{CCX_PREFIX}@{ccx}',
+            '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{CCX_PREFIX}@{ccx}',
+            '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+            '{CANONICAL_NAMESPACE}:{org}+{course}+{run}+{BRANCH_PREFIX}@{branch}+{VERSION_PREFIX}@{version_guid}+{CCX_PREFIX}@{ccx}',
+        ),
+        ('\n', '\n\n', ' ', '   ', '   \n'),
+    ))
+    @ddt.unpack
+    def test_locator_with_whitespace(self, url_template_fmt, whitespace):
+        available_fields = {
+            'version_guid': '519665f6223ebd6980884f2b',
+            'org': 'mit.eecs',
+            'course': '6002x',
+            'run': '2014_T2',
+            'branch': 'draft-1',
+            'ccx': '1',
+            'CANONICAL_NAMESPACE': CCXLocator.CANONICAL_NAMESPACE,
+            'VERSION_PREFIX': CCXLocator.VERSION_PREFIX,
+            'BRANCH_PREFIX': CCXLocator.BRANCH_PREFIX,
+            'CCX_PREFIX': CCXLocator.CCX_PREFIX,
+        }
+        this_url = url_template_fmt.format(**available_fields) + whitespace
+        with self.assertRaises(InvalidKeyError):
+            CourseKey.from_string(this_url)
 
     @ddt.data(
         ('version_guid'),
