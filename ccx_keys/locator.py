@@ -138,7 +138,7 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         for key in CCXLocator.KEY_FIELDS:
             if key in kwargs:
                 course_key_kwargs[key] = kwargs.pop(key)
-        if len(course_key_kwargs) > 0:
+        if course_key_kwargs:
             kwargs['course_key'] = self.course_key.replace(**course_key_kwargs)
 
         return super(CCXBlockUsageLocator, self).replace(**kwargs)
