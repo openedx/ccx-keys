@@ -1,4 +1,37 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+Package metadata for edx-ccx-keys.
+"""
+from io import open
+
 from setuptools import setup
+
+def load_requirements(*requirements_paths):
+    """
+    Load all requirements from the specified requirements files.
+
+    Returns:
+        list: Requirements file relative path strings
+    """
+    requirements = set()
+    for path in requirements_paths:
+        with open(path) as reqs:
+            requirements.update(
+                line.split('#')[0].strip() for line in reqs
+                if is_requirement(line.strip())
+            )
+    return list(requirements)
+
+
+def is_requirement(line):
+    """
+    Return True if the requirement line is a package requirement.
+
+    Returns:
+        bool: True if the line is not blank, a comment, a URL, or an included file
+    """
+    return line and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
 
 setup(
     name='edx-ccx-keys',
@@ -23,10 +56,7 @@ setup(
     packages=[
         'ccx_keys',
     ],
-    install_requires=[
-        'edx-opaque-keys>=2.0.0,<3.0.0',
-        'six>=1.10.0,<2.0.0'
-    ],
+    install_requires=load_requirements('requirements/base.in'),
     entry_points={
         'context_key': [
             'ccx-v1 = ccx_keys.locator:CCXLocator',

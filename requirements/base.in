@@ -1,0 +1,5 @@
+# Core requirements for using this application
+-c constraints.txt
+
+edx-opaque-keys>=2.0.0
+six>=1.10.0

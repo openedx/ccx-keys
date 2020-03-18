@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """ Locator module. """
+from __future__ import unicode_literals
+
 import re
 
 from opaque_keys import InvalidKeyError
