@@ -35,7 +35,7 @@ def is_requirement(line):
 
 setup(
     name='edx-ccx-keys',
-    version='1.0.1',
+    version='1.1.0',
     author='edX',
     author_email='oscm@edx.org',
     description='Opaque key support custom courses on edX',
@@ -48,10 +48,9 @@ setup(
         'License :: OSI Approved :: GNU Affero General Public License v3',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.8',
     ],
     packages=[
         'ccx_keys',
