@@ -6,8 +6,7 @@ html_coverage:
 	coverage html && open htmlcov/index.html
 
 quality:
-	pycodestyle --config=.pep8 ccx_keys
-	pylint --rcfile=pylintrc ccx_keys
+	tox -e quality
 
 requirements: ## install development environment requirements
 	pip install -qr requirements/pip-tools.txt
