@@ -1,5 +1,4 @@
 """ Tests for the ccx_keys package. """
-
 import six
 import ddt
 import itertools  # pylint: disable=wrong-import-order
@@ -137,7 +136,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             'branch': 'draft-1',
         }
         use_fields = dict(
-            (k, v) for k, v in available_fields.items() if k in fields
+            (k, v) for k, v in list(available_fields.items()) if k in fields
         )
         with self.assertRaises(InvalidKeyError) as context_manager:
             CCXLocator(**use_fields)
@@ -184,7 +183,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         this_url = url_template.format(**available_fields)
         testobj = CourseKey.from_string(this_url)
         use_keys = dict(
-            (k, v) for k, v in available_fields.items() if k in fields
+            (k, v) for k, v in list(available_fields.items()) if k in fields
         )
 
         if 'version_guid' in use_keys:
@@ -236,7 +235,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             'branch': 'draft-1',
         }
         ccx = '1'
-        use_fields = dict((k, v) for k, v in available_fields.items() if k in fields)
+        use_fields = dict((k, v) for k, v in list(available_fields.items()) if k in fields)
         course_id = CourseLocator(**use_fields)
         testobj = CCXLocator.from_course_locator(course_id, ccx)
 
@@ -329,8 +328,8 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         (["foo", "bar", "baz", "blat:blat", "foo:bar"], {}),  # ':' ok in name, not in category
         (('org', 'course', 'run', 'category', 'name with spaces', 'revision'), {}),
         (('org', 'course', 'run', 'category', 'name/with/slashes', 'revision'), {}),
-        (('org', 'course', 'run', 'category', 'name', u'\xae'), {}),
-        (('org', 'course', 'run', 'category', u'\xae', 'revision'), {}),
+        (('org', 'course', 'run', 'category', 'name', '\xae'), {}),
+        (('org', 'course', 'run', 'category', '\xae', 'revision'), {}),
         ((), {
             'tag': 'tag',
             'course': 'course',
@@ -371,7 +370,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         )
 
         with self.assertRaises(InvalidKeyError):
-            CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=True).replace(block_id=u'name\xae')
+            CCXBlockUsageLocator(course_key, 'c', 'n', deprecated=True).replace(block_id='name\xae')
 
     def test_map_into_course_location(self):
         original_course = CCXLocator(org='org', course='course', run='run', ccx='1')
