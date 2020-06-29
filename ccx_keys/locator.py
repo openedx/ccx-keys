@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 """ Locator module. """
-from __future__ import unicode_literals
-
 import re
 
 from opaque_keys import InvalidKeyError
@@ -93,7 +91,7 @@ class CCXLocator(CourseLocator, CCXKey):
         """
         string = super(CCXLocator, self)._to_string()
         # append the identifier for the ccx to the existing course string
-        string += u"+{prefix}@{ccx}".format(
+        string += "+{prefix}@{ccx}".format(
             prefix=self.CCX_PREFIX, ccx=self.ccx
         )
         return string
