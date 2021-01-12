@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """ Locator module. """
 import re
 
@@ -56,7 +55,7 @@ class CCXLocator(CourseLocator, CCXKey):
         if kwargs.get('deprecated', False):
             raise InvalidKeyError(self.__class__, "cannot be deprecated")
 
-        super(CCXLocator, self).__init__(**kwargs)
+        super().__init__(**kwargs)
 
     @classmethod
     def from_course_locator(cls, course_locator, ccx):
@@ -89,7 +88,7 @@ class CCXLocator(CourseLocator, CCXKey):
         """
         Return a string representing this location.
         """
-        string = super(CCXLocator, self)._to_string()
+        string = super()._to_string()
         # append the identifier for the ccx to the existing course string
         string += "+{prefix}@{ccx}".format(
             prefix=self.CCX_PREFIX, ccx=self.ccx
@@ -141,7 +140,7 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         if course_key_kwargs:
             kwargs['course_key'] = self.course_key.replace(**course_key_kwargs)
 
-        return super(CCXBlockUsageLocator, self).replace(**kwargs)
+        return super().replace(**kwargs)
 
     @classmethod
     def _from_string(cls, serialized):
