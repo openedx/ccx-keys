@@ -7,10 +7,7 @@ install:
   - pip install coveralls
 envs:
   - TOXENV=quality
-matrix:
-  include:
-    - python: '3.8'
-      env: TOXENV=py35
+  - TOXENV=py38
 script:
   - tox
 after_success:

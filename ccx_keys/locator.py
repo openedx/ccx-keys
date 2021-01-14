@@ -24,7 +24,6 @@ class CCXLocator(CourseLocator, CCXKey):
 
     # pep8 and pylint don't agree on the indentation in this block; let's make
     # pep8 happy and ignore pylint as that's easier to do.
-    # pylint: disable=bad-continuation
     URL_RE_SOURCE = r"""
         ((?P<org>{ALLOWED_ID_CHARS}+)\+(?P<course>{ALLOWED_ID_CHARS}+)(\+(?P<run>{ALLOWED_ID_CHARS}+))?{SEP})??
         ({BRANCH_PREFIX}@(?P<branch>{ALLOWED_ID_CHARS}+){SEP})?

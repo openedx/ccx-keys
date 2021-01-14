@@ -1,5 +1,4 @@
 """ Tests for the ccx_keys package. """
-import six
 import ddt
 import itertools  # pylint: disable=wrong-import-order
 from bson.objectid import ObjectId
