@@ -1,5 +1,4 @@
 """ Tests for the ccx_keys package. """
-import six
 import ddt
 import itertools  # pylint: disable=wrong-import-order
 from bson.objectid import ObjectId
@@ -135,9 +134,9 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             'run': '2014_T2',
             'branch': 'draft-1',
         }
-        use_fields = dict(
-            (k, v) for k, v in list(available_fields.items()) if k in fields
-        )
+        use_fields = {
+            k: v for k, v in list(available_fields.items()) if k in fields
+        }
         with self.assertRaises(InvalidKeyError) as context_manager:
             CCXLocator(**use_fields)
 
@@ -182,9 +181,9 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         }
         this_url = url_template.format(**available_fields)
         testobj = CourseKey.from_string(this_url)
-        use_keys = dict(
-            (k, v) for k, v in list(available_fields.items()) if k in fields
-        )
+        use_keys = {
+            k: v for k, v in list(available_fields.items()) if k in fields
+        }
 
         if 'version_guid' in use_keys:
             use_keys['version_guid'] = ObjectId(use_keys['version_guid'])
@@ -235,7 +234,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
             'branch': 'draft-1',
         }
         ccx = '1'
-        use_fields = dict((k, v) for k, v in list(available_fields.items()) if k in fields)
+        use_fields = {k: v for k, v in list(available_fields.items()) if k in fields}
         course_id = CourseLocator(**use_fields)
         testobj = CCXLocator.from_course_locator(course_id, ccx)
 
@@ -289,14 +288,14 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         "i4x://org.dept%sub-prof/course.num%section-4/category/name:12%33-44",
     )
     def test_string_roundtrip(self, url):
-        actual = six.text_type(UsageKey.from_string(url))
+        actual = str(UsageKey.from_string(url))
         self.assertEqual(
             url,
             actual
         )
 
     @ddt.data(
-        "ccx-block-v1:org+course+run+ccx@1+{}@category".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
+        f"ccx-block-v1:org+course+run+ccx@1+{CCXBlockUsageLocator.BLOCK_TYPE_PREFIX}@category",
         "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX,
                                                                            CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
     )
