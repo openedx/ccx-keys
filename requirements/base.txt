@@ -4,8 +4,15 @@
 #
 #    make upgrade
 #
-edx-opaque-keys==2.1.1    # via -r requirements/base.in
-pbr==5.5.1                # via stevedore
-pymongo==3.11.2           # via edx-opaque-keys
-six==1.15.0               # via -r requirements/base.in, edx-opaque-keys
-stevedore==3.3.0          # via edx-opaque-keys
+edx-opaque-keys==2.1.1
+    # via -r requirements/base.in
+pbr==5.5.1
+    # via stevedore
+pymongo==3.11.2
+    # via edx-opaque-keys
+six==1.15.0
+    # via
+    #   -r requirements/base.in
+    #   edx-opaque-keys
+stevedore==3.3.0
+    # via edx-opaque-keys
