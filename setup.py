@@ -33,7 +33,7 @@ def is_requirement(line):
 
 setup(
     name='edx-ccx-keys',
-    version='1.2.0',
+    version='1.2.1',
     author='edX',
     author_email='oscm@edx.org',
     description='Opaque key support custom courses on edX',
