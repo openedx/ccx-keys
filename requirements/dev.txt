@@ -18,16 +18,15 @@ click-log==0.3.2
     # via
     #   -r requirements/test.txt
     #   edx-lint
-click==7.1.2
+click==8.0.1
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/test.txt
     #   click-log
     #   code-annotations
     #   edx-lint
     #   pip-tools
-code-annotations==1.1.1
+code-annotations==1.1.2
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -35,7 +34,7 @@ coverage==5.5
     # via -r requirements/test.txt
 ddt==1.4.2
     # via -r requirements/test.txt
-distlib==0.3.1
+distlib==0.3.2
     # via
     #   -r requirements/test.txt
     #   -r requirements/travis.txt
@@ -44,11 +43,10 @@ django==2.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
-    #   code-annotations
     #   edx-lint
 edx-lint==5.0.0
     # via -r requirements/test.txt
-edx-opaque-keys==2.2.0
+edx-opaque-keys==2.2.1
     # via -r requirements/test.txt
 filelock==3.0.12
     # via
@@ -60,7 +58,7 @@ isort==5.8.0
     # via
     #   -r requirements/test.txt
     #   pylint
-jinja2==3.0.0
+jinja2==3.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -68,7 +66,7 @@ lazy-object-proxy==1.6.0
     # via
     #   -r requirements/test.txt
     #   astroid
-markupsafe==2.0.0
+markupsafe==2.0.1
     # via
     #   -r requirements/test.txt
     #   jinja2
@@ -120,7 +118,7 @@ pylint-plugin-utils==0.6
     #   -r requirements/test.txt
     #   pylint-celery
     #   pylint-django
-pylint==2.8.2
+pylint==2.8.3
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -183,7 +181,7 @@ tox==3.23.1
     #   -r requirements/test.txt
     #   -r requirements/travis.txt
     #   tox-battery
-virtualenv==20.4.6
+virtualenv==20.4.7
     # via
     #   -r requirements/test.txt
     #   -r requirements/travis.txt
