@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-edx-opaque-keys==2.2.0
+edx-opaque-keys==2.2.1
     # via -r requirements/base.in
 pbr==5.6.0
     # via stevedore
