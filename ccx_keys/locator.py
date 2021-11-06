@@ -89,9 +89,7 @@ class CCXLocator(CourseLocator, CCXKey):
         """
         string = super()._to_string()
         # append the identifier for the ccx to the existing course string
-        string += "+{prefix}@{ccx}".format(
-            prefix=self.CCX_PREFIX, ccx=self.ccx
-        )
+        string += f"+{self.CCX_PREFIX}@{self.ccx}"
         return string
 
     def _to_deprecated_string(self):
