@@ -2,6 +2,8 @@
 """
 Package metadata for edx-ccx-keys.
 """
+import os
+import re
 
 from setuptools import setup
 
@@ -31,9 +33,26 @@ def is_requirement(line):
     """
     return line and not line.startswith(('-r', '#', '-e', 'git+', '-c'))
 
+
+def get_version(file_path):
+    """
+    Extract the version string from the file at the given relative path fragments.
+    """
+    filename = os.path.join(os.path.dirname(__file__), file_path)
+    with open(filename, encoding='utf-8') as opened_file:
+        version_file = opened_file.read()
+        version_match = re.search(r"(?m)^__version__ = ['\"]([^'\"]+)['\"]", version_file)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError('Unable to find version string.')
+
+
+VERSION = get_version("ccx_keys/__init__.py")
+
+
 setup(
     name='edx-ccx-keys',
-    version='1.2.1',
+    version=VERSION,
     author='edX',
     author_email='oscm@edx.org',
     description='Opaque key support custom courses on edX',
