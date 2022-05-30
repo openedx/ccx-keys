@@ -4,11 +4,11 @@
 #
 #    make upgrade
 #
-edx-opaque-keys==2.2.2
+edx-opaque-keys==2.3.0
     # via -r requirements/base.in
-pbr==5.7.0
+pbr==5.9.0
     # via stevedore
-pymongo==3.12.1
+pymongo==3.12.3
     # via edx-opaque-keys
 six==1.16.0
     # via -r requirements/base.in
