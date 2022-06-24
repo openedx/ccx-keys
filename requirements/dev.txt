@@ -4,21 +4,16 @@
 #
 #    make upgrade
 #
-astroid==2.8.4
+astroid==2.11.6
     # via
     #   -r requirements/test.txt
     #   pylint
     #   pylint-celery
-attrs==21.2.0
+attrs==21.4.0
     # via
     #   -r requirements/test.txt
     #   pytest
-backports.entry-points-selectable==1.1.0
-    # via
-    #   -r requirements/ci.txt
-    #   -r requirements/test.txt
-    #   virtualenv
-click==8.0.3
+click==8.1.3
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/test.txt
@@ -26,28 +21,32 @@ click==8.0.3
     #   code-annotations
     #   edx-lint
     #   pip-tools
-click-log==0.3.2
+click-log==0.4.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-code-annotations==1.2.0
+code-annotations==1.3.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage==6.1.1
+coverage==6.4.1
     # via -r requirements/test.txt
-ddt==1.4.4
+ddt==1.5.0
     # via -r requirements/test.txt
-distlib==0.3.3
+dill==0.3.5.1
+    # via
+    #   -r requirements/test.txt
+    #   pylint
+distlib==0.3.4
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   virtualenv
-edx-lint==5.2.1
+edx-lint==5.2.4
     # via -r requirements/test.txt
-edx-opaque-keys==2.2.2
+edx-opaque-keys==2.3.0
     # via -r requirements/test.txt
-filelock==3.3.2
+filelock==3.7.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -57,35 +56,35 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.10.0
+isort==5.10.1
     # via
     #   -r requirements/test.txt
     #   pylint
-jinja2==3.0.2
+jinja2==3.1.2
     # via
     #   -r requirements/test.txt
     #   code-annotations
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via
     #   -r requirements/test.txt
     #   astroid
-markupsafe==2.0.1
+markupsafe==2.1.1
     # via
     #   -r requirements/test.txt
     #   jinja2
-mccabe==0.6.1
+mccabe==0.7.0
     # via
     #   -r requirements/test.txt
     #   pylint
 mock==4.0.3
     # via -r requirements/test.txt
-packaging==21.2
+packaging==21.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   pytest
     #   tox
-pbr==5.7.0
+pbr==5.9.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -93,9 +92,9 @@ pep517==0.12.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-pip-tools==6.4.0
+pip-tools==6.6.2
     # via -r requirements/pip-tools.txt
-platformdirs==2.4.0
+platformdirs==2.5.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -115,7 +114,7 @@ py==1.11.0
     #   tox
 pycodestyle==2.8.0
     # via -r requirements/test.txt
-pylint==2.11.1
+pylint==2.14.3
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -126,27 +125,27 @@ pylint-celery==0.3
     # via
     #   -r requirements/test.txt
     #   edx-lint
-pylint-django==2.4.4
+pylint-django==2.5.3
     # via
     #   -r requirements/test.txt
     #   edx-lint
-pylint-plugin-utils==0.6
+pylint-plugin-utils==0.7
     # via
     #   -r requirements/test.txt
     #   pylint-celery
     #   pylint-django
-pymongo==3.12.1
+pymongo==3.12.3
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-pyparsing==2.4.7
+pyparsing==3.0.9
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   packaging
-pytest==6.2.5
+pytest==7.1.2
     # via -r requirements/test.txt
-python-slugify==5.0.2
+python-slugify==6.1.2
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -174,35 +173,40 @@ toml==0.10.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
-    #   pylint
-    #   pytest
     #   tox
-tomli==1.2.2
+tomli==2.0.1
     # via
     #   -r requirements/pip-tools.txt
+    #   -r requirements/test.txt
     #   pep517
-tox==3.24.4
+    #   pylint
+    #   pytest
+tomlkit==0.11.0
+    # via
+    #   -r requirements/test.txt
+    #   pylint
+tox==3.25.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   tox-battery
 tox-battery==0.6.1
     # via -r requirements/dev.in
-typing-extensions==3.10.0.2
+typing-extensions==4.2.0
     # via
     #   -r requirements/test.txt
     #   astroid
     #   pylint
-virtualenv==20.10.0
+virtualenv==20.14.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   tox
-wheel==0.37.0
+wheel==0.37.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-wrapt==1.13.3
+wrapt==1.14.1
     # via
     #   -r requirements/test.txt
     #   astroid
