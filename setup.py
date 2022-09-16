@@ -56,7 +56,7 @@ setup(
     author='edX',
     author_email='oscm@edx.org',
     description='Opaque key support custom courses on edX',
-    url='https://github.com/edx/ccx-keys',
+    url='https://github.com/openedx/ccx-keys',
     license='AGPL',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
