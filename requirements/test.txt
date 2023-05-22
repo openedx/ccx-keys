@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.15.4
+astroid==2.15.5
     # via
     #   pylint
     #   pylint-celery
@@ -59,7 +59,7 @@ pbr==5.11.1
     # via
     #   -r requirements/base.txt
     #   stevedore
-platformdirs==3.5.0
+platformdirs==3.5.1
     # via
     #   pylint
     #   virtualenv
@@ -81,7 +81,7 @@ pylint-celery==0.3
     # via edx-lint
 pylint-django==2.5.3
     # via edx-lint
-pylint-plugin-utils==0.7
+pylint-plugin-utils==0.8.2
     # via
     #   pylint-celery
     #   pylint-django
@@ -100,7 +100,7 @@ six==1.16.0
     #   -r requirements/base.txt
     #   edx-lint
     #   tox
-stevedore==5.0.0
+stevedore==5.1.0
     # via
     #   -r requirements/base.txt
     #   code-annotations

@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.15.4
+astroid==2.15.5
     # via
     #   -r requirements/test.txt
     #   pylint
@@ -96,7 +96,7 @@ pbr==5.11.1
     #   stevedore
 pip-tools==6.13.0
     # via -r requirements/pip-tools.txt
-platformdirs==3.5.0
+platformdirs==3.5.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -130,7 +130,7 @@ pylint-django==2.5.3
     # via
     #   -r requirements/test.txt
     #   edx-lint
-pylint-plugin-utils==0.7
+pylint-plugin-utils==0.8.2
     # via
     #   -r requirements/test.txt
     #   pylint-celery
@@ -159,7 +159,7 @@ six==1.16.0
     #   -r requirements/test.txt
     #   edx-lint
     #   tox
-stevedore==5.0.0
+stevedore==5.1.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
