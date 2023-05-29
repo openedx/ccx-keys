@@ -12,5 +12,5 @@ pymongo==3.13.0
     # via edx-opaque-keys
 six==1.16.0
     # via -r requirements/base.in
-stevedore==5.0.0
+stevedore==5.1.0
     # via edx-opaque-keys
