@@ -17,7 +17,7 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.5.0
     # via edx-lint
-coverage==7.3.0
+coverage==7.3.1
     # via -r requirements/test.in
 ddt==1.6.0
     # via -r requirements/test.in
@@ -89,7 +89,7 @@ pymongo==3.13.0
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-pytest==7.4.1
+pytest==7.4.2
     # via -r requirements/test.in
 python-slugify==8.0.1
     # via code-annotations
@@ -125,7 +125,7 @@ typing-extensions==4.7.1
     #   edx-opaque-keys
     #   filelock
     #   pylint
-virtualenv==20.24.4
+virtualenv==20.24.5
     # via tox
 wrapt==1.15.0
     # via astroid
