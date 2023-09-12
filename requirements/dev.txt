@@ -9,7 +9,7 @@ astroid==2.15.6
     #   -r requirements/test.txt
     #   pylint
     #   pylint-celery
-build==1.0.0
+build==1.0.3
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -29,7 +29,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage==7.3.0
+coverage==7.3.1
     # via -r requirements/test.txt
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -147,7 +147,7 @@ pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
-pytest==7.4.1
+pytest==7.4.2
     # via -r requirements/test.txt
 python-slugify==8.0.1
     # via
@@ -203,7 +203,7 @@ typing-extensions==4.7.1
     #   edx-opaque-keys
     #   filelock
     #   pylint
-virtualenv==20.24.4
+virtualenv==20.24.5
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
