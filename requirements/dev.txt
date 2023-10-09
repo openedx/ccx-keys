@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.15.6
+astroid==2.15.8
     # via
     #   -r requirements/test.txt
     #   pylint
@@ -29,7 +29,7 @@ code-annotations==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-coverage==7.3.1
+coverage==7.3.2
     # via -r requirements/test.txt
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -44,13 +44,13 @@ distlib==0.3.7
     #   virtualenv
 edx-lint==5.3.4
     # via -r requirements/test.txt
-edx-opaque-keys==2.5.0
+edx-opaque-keys==2.5.1
     # via -r requirements/test.txt
 exceptiongroup==1.1.3
     # via
     #   -r requirements/test.txt
     #   pytest
-filelock==3.12.3
+filelock==3.12.4
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -86,7 +86,7 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/test.txt
-packaging==23.1
+packaging==23.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -100,7 +100,7 @@ pbr==5.11.1
     #   stevedore
 pip-tools==7.3.0
     # via -r requirements/pip-tools.txt
-platformdirs==3.10.0
+platformdirs==3.11.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -119,7 +119,7 @@ py==1.11.0
     #   tox
 pycodestyle==2.11.0
     # via -r requirements/test.txt
-pylint==2.17.5
+pylint==2.17.7
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -195,13 +195,11 @@ tox==3.28.0
     #   tox-battery
 tox-battery==0.6.2
     # via -r requirements/dev.in
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
-    #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   astroid
     #   edx-opaque-keys
-    #   filelock
     #   pylint
 virtualenv==20.24.5
     # via
@@ -216,7 +214,7 @@ wrapt==1.15.0
     # via
     #   -r requirements/test.txt
     #   astroid
-zipp==3.16.2
+zipp==3.17.0
     # via
     #   -r requirements/pip-tools.txt
     #   importlib-metadata

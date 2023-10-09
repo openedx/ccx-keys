@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-edx-opaque-keys==2.5.0
+edx-opaque-keys==2.5.1
     # via -r requirements/base.in
 pbr==5.11.1
     # via stevedore
@@ -14,5 +14,5 @@ six==1.16.0
     # via -r requirements/base.in
 stevedore==5.1.0
     # via edx-opaque-keys
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via edx-opaque-keys
