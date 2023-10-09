@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.15.6
+astroid==2.15.8
     # via
     #   pylint
     #   pylint-celery
@@ -17,7 +17,7 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.5.0
     # via edx-lint
-coverage==7.3.1
+coverage==7.3.2
     # via -r requirements/test.in
 ddt==1.6.0
     # via -r requirements/test.in
@@ -27,11 +27,11 @@ distlib==0.3.7
     # via virtualenv
 edx-lint==5.3.4
     # via -r requirements/test.in
-edx-opaque-keys==2.5.0
+edx-opaque-keys==2.5.1
     # via -r requirements/base.txt
 exceptiongroup==1.1.3
     # via pytest
-filelock==3.12.3
+filelock==3.12.4
     # via
     #   tox
     #   virtualenv
@@ -51,7 +51,7 @@ mccabe==0.7.0
     # via pylint
 mock==5.1.0
     # via -r requirements/test.in
-packaging==23.1
+packaging==23.2
     # via
     #   pytest
     #   tox
@@ -59,7 +59,7 @@ pbr==5.11.1
     # via
     #   -r requirements/base.txt
     #   stevedore
-platformdirs==3.10.0
+platformdirs==3.11.0
     # via
     #   pylint
     #   virtualenv
@@ -71,7 +71,7 @@ py==1.11.0
     # via tox
 pycodestyle==2.11.0
     # via -r requirements/test.in
-pylint==2.17.5
+pylint==2.17.7
     # via
     #   edx-lint
     #   pylint-celery
@@ -118,12 +118,11 @@ tox==3.28.0
     # via
     #   -c requirements/common_constraints.txt
     #   -r requirements/test.in
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/base.txt
     #   astroid
     #   edx-opaque-keys
-    #   filelock
     #   pylint
 virtualenv==20.24.5
     # via tox
