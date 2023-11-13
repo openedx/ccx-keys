@@ -6,7 +6,7 @@
 #
 edx-opaque-keys==2.5.1
     # via -r requirements/base.in
-pbr==5.11.1
+pbr==6.0.0
     # via stevedore
 pymongo==3.13.0
     # via edx-opaque-keys
