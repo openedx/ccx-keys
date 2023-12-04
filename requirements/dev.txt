@@ -61,7 +61,7 @@ edx-lint==5.3.6
     # via -r requirements/test.txt
 edx-opaque-keys==2.5.1
     # via -r requirements/test.txt
-exceptiongroup==1.1.3
+exceptiongroup==1.2.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -71,7 +71,7 @@ filelock==3.13.1
     #   -r requirements/test.txt
     #   tox
     #   virtualenv
-importlib-metadata==6.8.0
+importlib-metadata==7.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
@@ -202,7 +202,7 @@ tomlkit==0.12.3
     # via
     #   -r requirements/test.txt
     #   pylint
-tox==4.11.3
+tox==4.11.4
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -212,12 +212,12 @@ typing-extensions==4.8.0
     #   astroid
     #   edx-opaque-keys
     #   pylint
-virtualenv==20.24.6
+virtualenv==20.25.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   tox
-wheel==0.41.3
+wheel==0.42.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
