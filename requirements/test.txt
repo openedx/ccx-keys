@@ -23,7 +23,7 @@ code-annotations==1.5.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage==7.3.3
+coverage==7.3.4
     # via -r requirements/test.in
 ddt==1.7.0
     # via -r requirements/test.in
