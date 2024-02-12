@@ -164,7 +164,7 @@ pyproject-hooks==1.0.0
     #   build
 pytest==8.0.0
     # via -r requirements/test.txt
-python-slugify==8.0.3
+python-slugify==8.0.4
     # via
     #   -r requirements/test.txt
     #   code-annotations
