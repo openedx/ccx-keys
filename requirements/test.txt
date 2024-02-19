@@ -95,7 +95,7 @@ pymongo==3.13.0
     #   edx-opaque-keys
 pyproject-api==1.6.1
     # via tox
-pytest==8.0.0
+pytest==8.0.1
     # via -r requirements/test.in
 python-slugify==8.0.4
     # via code-annotations
@@ -120,7 +120,7 @@ tomli==2.0.1
     #   tox
 tomlkit==0.12.3
     # via pylint
-tox==4.12.1
+tox==4.13.0
     # via -r requirements/test.in
 typing-extensions==4.9.0
     # via
