@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==3.0.3
+astroid==3.1.0
     # via
     #   pylint
     #   pylint-celery
@@ -23,7 +23,7 @@ code-annotations==1.6.0
     # via edx-lint
 colorama==0.4.6
     # via tox
-coverage==7.4.1
+coverage==7.4.3
     # via -r requirements/test.in
 ddt==1.7.1
     # via -r requirements/test.in
@@ -75,7 +75,7 @@ pluggy==1.4.0
     #   tox
 pycodestyle==2.11.1
     # via -r requirements/test.in
-pylint==3.0.3
+pylint==3.1.0
     # via
     #   edx-lint
     #   pylint-celery
@@ -95,7 +95,7 @@ pymongo==3.13.0
     #   edx-opaque-keys
 pyproject-api==1.6.1
     # via tox
-pytest==8.0.1
+pytest==8.0.2
     # via -r requirements/test.in
 python-slugify==8.0.4
     # via code-annotations
@@ -105,7 +105,7 @@ six==1.16.0
     # via
     #   -r requirements/base.txt
     #   edx-lint
-stevedore==5.1.0
+stevedore==5.2.0
     # via
     #   -r requirements/base.txt
     #   code-annotations
@@ -122,11 +122,11 @@ tomlkit==0.12.3
     # via pylint
 tox==4.13.0
     # via -r requirements/test.in
-typing-extensions==4.9.0
+typing-extensions==4.10.0
     # via
     #   -r requirements/base.txt
     #   astroid
     #   edx-opaque-keys
     #   pylint
-virtualenv==20.25.0
+virtualenv==20.25.1
     # via tox
