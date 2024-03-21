@@ -1,6 +1,7 @@
 """ Tests for the ccx_keys package. """
-import ddt
-import itertools  # pylint: disable=wrong-import-order
+import itertools
+
+import ddt  # pylint: disable=import-error
 from bson.objectid import ObjectId
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey, UsageKey
@@ -22,7 +23,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         course = '6002x'
         run = '2014_T2'
         ccx = '1'
-        testurn = '{}+{}+{}+{}@{}'.format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        testurn = '{}+{}+{}+{}@{}'.format(
             org, course, run, CCXLocator.CCX_PREFIX, ccx
         )
         testobj = CCXLocator(org=org, course=course, run=run, ccx=ccx)
@@ -39,7 +40,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         """Verify a locator constructed with only version_guid is correct"""
         test_id_loc = '519665f6223ebd6980884f2b'
         ccx = '1'
-        expected_urn = '{}@{}+{}@{}'.format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        expected_urn = '{}@{}+{}@{}'.format(
             CCXLocator.VERSION_PREFIX, test_id_loc,
             CCXLocator.CCX_PREFIX, ccx
         )
@@ -61,7 +62,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         run = '2014_T2'
         test_branch = 'published'
         ccx = '1'
-        expected_urn = '{}+{}+{}+{}@{}+{}@{}'.format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        expected_urn = '{}+{}+{}+{}@{}+{}@{}'.format(
             org, course, run,
             CCXLocator.BRANCH_PREFIX, test_branch,
             CCXLocator.CCX_PREFIX, ccx
@@ -90,7 +91,7 @@ class TestCCXKeys(LocatorBaseTest, TestDeprecated):
         run = '2014_T2'
         branch = 'draft-1'
         ccx = '1'
-        expected_urn = '{}+{}+{}+{}@{}+{}@{}+{}@{}'.format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        expected_urn = '{}+{}+{}+{}@{}+{}@{}+{}@{}'.format(
             org, course, run,
             CCXLocator.BRANCH_PREFIX, branch,
             CCXLocator.VERSION_PREFIX, test_id_loc,
@@ -274,16 +275,16 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
 
     @ddt.data(
         # do we need or even want to support deprecated forms of urls?
-        "ccx-block-v1:org+course+run+ccx@1+{}@category+{}@name".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX,  # lint-amnesty, pylint: disable=consider-using-f-string
+        "ccx-block-v1:org+course+run+ccx@1+{}@category+{}@name".format(CCXBlockUsageLocator.BLOCK_TYPE_PREFIX,
                                                                        CCXBlockUsageLocator.BLOCK_PREFIX),
-        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category+{}@name".format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category+{}@name".format(
             CourseLocator.BRANCH_PREFIX,
             CCXBlockUsageLocator.BLOCK_TYPE_PREFIX,
             CCXBlockUsageLocator.BLOCK_PREFIX),
         "i4x://org/course/category/name@revision",
         # now try the extended char sets - we expect that "%" should be OK in deprecated-style ids,
         # but should not be valid in new-style ids
-        "ccx-block-v1:org.dept.sub-prof+course.num.section-4+run.hour.min-99+ccx@1+{}@category+{}@name:12.33-44".format(  # lint-amnesty, pylint: disable=consider-using-f-string
+        "ccx-block-v1:org.dept.sub-prof+course.num.section-4+run.hour.min-99+ccx@1+{}@category+{}@name:12.33-44".format(
             CCXBlockUsageLocator.BLOCK_TYPE_PREFIX, CCXBlockUsageLocator.BLOCK_PREFIX),
         "i4x://org.dept%sub-prof/course.num%section-4/category/name:12%33-44",
     )
@@ -296,7 +297,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
 
     @ddt.data(
         f"ccx-block-v1:org+course+run+ccx@1+{CCXBlockUsageLocator.BLOCK_TYPE_PREFIX}@category",
-        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX,  # lint-amnesty, pylint: disable=consider-using-f-string
+        "ccx-block-v1:org+course+run+{}@revision+ccx@1+{}@category".format(CourseLocator.BRANCH_PREFIX,
                                                                            CCXBlockUsageLocator.BLOCK_TYPE_PREFIX),
     )
     def test_missing_block_id(self, url):
@@ -308,7 +309,7 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
         ('org', 'course', 'run', '1', 'category', 'name:more_name', None),
     )
     @ddt.unpack
-    def test_valid_locations(self, org, course, run, ccx, category, name, revision):  # pylint: disable=unused-argument
+    def test_valid_locations(self, org, course, run, ccx, category, name, revision):
         course_key = CCXLocator(org=org, course=course, run=run, branch=revision, ccx=ccx)
         locator = CCXBlockUsageLocator(course_key, block_type=category, block_id=name, )
         self.assertEqual(org, locator.org)
