@@ -31,3 +31,4 @@ upgrade: $(COMMON_CONSTRAINTS_TXT)  ## update the requirements/*.txt files with 
 	pip-compile --rebuild --upgrade -o requirements/test.txt requirements/test.in
 	pip-compile --rebuild --upgrade -o requirements/ci.txt requirements/ci.in
 	pip-compile --rebuild --upgrade -o requirements/dev.txt requirements/dev.in
+	pip-compile --rebuild --upgrade -o requirements/quality.txt requirements/quality.in

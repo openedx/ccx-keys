@@ -74,7 +74,6 @@ class CCXLocator(CourseLocator, CCXKey):
         """
         Returns a CourseLocator representing this location.
         """
-        # pylint: disable=no-member
         return CourseLocator(
             org=self.org,
             course=self.course,
@@ -146,7 +145,7 @@ class CCXBlockUsageLocator(BlockUsageLocator, UsageKey):
         deserialization of block
         """
         # Allow access to _from_string protected method
-        course_key = CCXLocator._from_string(serialized)  # pylint: disable=protected-access
+        course_key = CCXLocator._from_string(serialized)
         parsed_parts = cls.parse_url(serialized)
         block_id = parsed_parts.get('block_id', None)
         if block_id is None:
