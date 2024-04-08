@@ -14,5 +14,5 @@ six==1.16.0
     # via -r requirements/base.in
 stevedore==5.2.0
     # via edx-opaque-keys
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via edx-opaque-keys
