@@ -19,7 +19,7 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.7.0
+code-annotations==1.8.0
     # via edx-lint
 colorama==0.4.6
     # via tox
@@ -37,7 +37,7 @@ edx-opaque-keys==2.5.1
     # via -r requirements/base.txt
 exceptiongroup==1.2.0
     # via pytest
-filelock==3.13.1
+filelock==3.13.4
     # via
     #   tox
     #   virtualenv
@@ -120,9 +120,9 @@ tomli==2.0.1
     #   tox
 tomlkit==0.12.4
     # via pylint
-tox==4.14.1
+tox==4.14.2
     # via -r requirements/test.in
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/base.txt
     #   astroid
