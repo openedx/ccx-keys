@@ -35,6 +35,7 @@ jobs:
 
     - name: Run Coverage
       if: matrix.python-version == '3.8' && matrix.toxenv=='unittest'
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v4
       with:
         fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
