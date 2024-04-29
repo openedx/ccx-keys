@@ -9,7 +9,7 @@ astroid==3.1.0
     #   -r requirements/test.txt
     #   pylint
     #   pylint-celery
-build==1.1.1
+build==1.2.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -35,7 +35,7 @@ click-log==0.4.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-code-annotations==1.7.0
+code-annotations==1.8.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -44,7 +44,7 @@ colorama==0.4.6
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   tox
-coverage==7.4.4
+coverage==7.5.0
     # via -r requirements/test.txt
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -57,15 +57,19 @@ distlib==0.3.8
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   virtualenv
+dnspython==2.6.1
+    # via
+    #   -r requirements/test.txt
+    #   pymongo
 edx-lint==5.3.6
     # via -r requirements/test.txt
-edx-opaque-keys==2.5.1
+edx-opaque-keys==2.9.0
     # via -r requirements/test.txt
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via
     #   -r requirements/test.txt
     #   pytest
-filelock==3.13.1
+filelock==3.13.4
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -115,14 +119,14 @@ pbr==6.0.0
     #   stevedore
 pip-tools==7.4.1
     # via -r requirements/pip-tools.txt
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   pylint
     #   tox
     #   virtualenv
-pluggy==1.4.0
+pluggy==1.5.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -150,7 +154,7 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/test.txt
     #   pylint-celery
     #   pylint-django
-pymongo==3.13.0
+pymongo==4.4.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -164,7 +168,7 @@ pyproject-hooks==1.0.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.1.1
+pytest==8.2.0
     # via -r requirements/test.txt
 python-slugify==8.0.4
     # via
@@ -203,17 +207,17 @@ tomlkit==0.12.4
     # via
     #   -r requirements/test.txt
     #   pylint
-tox==4.14.1
+tox==4.15.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/test.txt
     #   astroid
     #   edx-opaque-keys
     #   pylint
-virtualenv==20.25.1
+virtualenv==20.26.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
