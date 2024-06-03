@@ -4,15 +4,17 @@
 #
 #    make upgrade
 #
-edx-opaque-keys==2.5.1
+dnspython==2.6.1
+    # via pymongo
+edx-opaque-keys==2.9.0
     # via -r requirements/base.in
 pbr==6.0.0
     # via stevedore
-pymongo==3.13.0
+pymongo==4.4.0
     # via edx-opaque-keys
 six==1.16.0
     # via -r requirements/base.in
 stevedore==5.2.0
     # via edx-opaque-keys
-typing-extensions==4.10.0
+typing-extensions==4.12.1
     # via edx-opaque-keys
