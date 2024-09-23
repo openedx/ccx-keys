@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==3.2.4
+astroid==3.3.3
     # via
     #   pylint
     #   pylint-celery
@@ -19,7 +19,7 @@ code-annotations==1.8.0
     # via edx-lint
 dill==0.3.8
     # via pylint
-edx-lint==5.3.7
+edx-lint==5.4.0
     # via -r requirements/quality.in
 isort==5.13.2
     # via pylint
@@ -29,13 +29,13 @@ markupsafe==2.1.5
     # via jinja2
 mccabe==0.7.0
     # via pylint
-pbr==6.0.0
+pbr==6.1.0
     # via stevedore
-platformdirs==4.2.2
+platformdirs==4.3.6
     # via pylint
 pycodestyle==2.12.1
     # via -r requirements/quality.in
-pylint==3.2.6
+pylint==3.3.0
     # via
     #   -r requirements/quality.in
     #   edx-lint
