@@ -16,7 +16,7 @@ jobs:
       matrix:
         os:
           - ubuntu-latest
-        python-version: ['3.11']
+        python-version: ['3.12']
         toxenv: [ unittest, quality ]
     steps:
     - uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
       run: tox
 
     - name: Run Coverage
-      if: matrix.python-version == '3.8' && matrix.toxenv=='unittest'
+      if: matrix.python-version == '3.12' && matrix.toxenv=='unittest'
       uses: codecov/codecov-action@v4
       with:
         fail_ci_if_error: true
