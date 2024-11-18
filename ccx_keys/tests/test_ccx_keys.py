@@ -305,12 +305,13 @@ class TestCCXBlockUsageLocator(LocatorBaseTest):
             UsageKey.from_string(url)
 
     @ddt.data(
-        ('org', 'course', 'run', '1', 'category', 'name', None),
-        ('org', 'course', 'run', '1', 'category', 'name:more_name', None),
+        {'org': 'org', 'course': 'course', 'run': 'run', 'ccx': '1',
+         'category': 'category', 'name': 'name', 'revision': None},
+        {'org': 'org', 'course': 'course', 'run': 'run', 'ccx': '1',
+         'category': 'category', 'name': 'name:more_name', 'revision': None},
     )
     @ddt.unpack
-    # pylint: disable=too-many-positional-arguments
-    def test_valid_locations(self, org, course, run, ccx, category, name, revision):
+    def test_valid_locations(self, *, org, course, run, ccx, category, name, revision):
         course_key = CCXLocator(org=org, course=course, run=run, branch=revision, ccx=ccx)
         locator = CCXBlockUsageLocator(course_key, block_type=category, block_id=name, )
         self.assertEqual(org, locator.org)
