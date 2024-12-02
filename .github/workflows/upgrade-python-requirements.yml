@@ -14,6 +14,7 @@ jobs:
   call-upgrade-python-requirements-workflow:
     uses: openedx/.github/.github/workflows/upgrade-python-requirements.yml@master
     with:
+      python_version: "3.12"
       branch: ${{ github.event.inputs.branch || 'master' }}
       # optional parameters below; fill in if you'd like github or email notifications
       # user_reviewers: ""
