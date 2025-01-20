@@ -19,7 +19,7 @@ click==8.1.8
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via edx-lint
 colorama==0.4.6
     # via tox
@@ -122,5 +122,5 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/base.txt
     #   edx-opaque-keys
-virtualenv==20.28.1
+virtualenv==20.29.1
     # via tox
