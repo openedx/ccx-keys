@@ -13,7 +13,7 @@ build==1.2.2.post1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==5.5.0
+cachetools==5.5.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -35,7 +35,7 @@ click-log==0.4.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -44,7 +44,7 @@ colorama==0.4.6
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   tox
-coverage==7.6.10
+coverage==7.6.12
     # via -r requirements/test.txt
 ddt==1.7.2
     # via -r requirements/test.txt
@@ -61,11 +61,11 @@ dnspython==2.7.0
     # via
     #   -r requirements/test.txt
     #   pymongo
-edx-lint==5.4.1
+edx-lint==5.6.0
     # via -r requirements/test.txt
 edx-opaque-keys==2.11.0
     # via -r requirements/test.txt
-filelock==3.16.1
+filelock==3.17.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -75,7 +75,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/test.txt
     #   pylint
@@ -104,7 +104,7 @@ packaging==24.2
     #   pyproject-api
     #   pytest
     #   tox
-pbr==6.1.0
+pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -125,7 +125,7 @@ pluggy==1.5.0
     #   tox
 pycodestyle==2.12.1
     # via -r requirements/test.txt
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   -r requirements/test.txt
     #   edx-lint
@@ -145,11 +145,11 @@ pylint-plugin-utils==0.8.2
     #   -r requirements/test.txt
     #   pylint-celery
     #   pylint-django
-pymongo==4.10.1
+pymongo==4.11.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-pyproject-api==1.8.0
+pyproject-api==1.9.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -173,7 +173,7 @@ six==1.17.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -186,7 +186,7 @@ tomlkit==0.13.2
     # via
     #   -r requirements/test.txt
     #   pylint
-tox==4.23.2
+tox==4.24.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
@@ -194,7 +194,7 @@ typing-extensions==4.12.2
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-virtualenv==20.28.1
+virtualenv==20.29.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
