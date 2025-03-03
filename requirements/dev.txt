@@ -75,7 +75,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==6.0.0
+isort==6.0.1
     # via
     #   -r requirements/test.txt
     #   pylint
@@ -159,7 +159,7 @@ pyproject-hooks==1.2.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.3.4
+pytest==8.3.5
     # via -r requirements/test.txt
 python-slugify==8.0.4
     # via
