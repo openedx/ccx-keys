@@ -45,7 +45,7 @@ filelock==3.17.0
     #   virtualenv
 iniconfig==2.0.0
     # via pytest
-isort==6.0.0
+isort==6.0.1
     # via pylint
 jinja2==3.1.5
     # via code-annotations
@@ -97,7 +97,7 @@ pymongo==4.11.1
     #   edx-opaque-keys
 pyproject-api==1.9.0
     # via tox
-pytest==8.3.4
+pytest==8.3.5
     # via -r requirements/test.in
 python-slugify==8.0.4
     # via code-annotations
