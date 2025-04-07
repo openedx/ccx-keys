@@ -190,11 +190,11 @@ tox==4.25.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
-typing-extensions==4.13.0
+typing-extensions==4.13.1
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
-virtualenv==20.29.3
+virtualenv==20.30.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
