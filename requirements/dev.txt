@@ -57,7 +57,7 @@ distlib==0.4.0
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
     #   virtualenv
-dnspython==2.7.0
+dnspython==2.8.0
     # via
     #   -r requirements/test.txt
     #   pymongo
@@ -159,7 +159,7 @@ pyproject-hooks==1.2.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.4.1
+pytest==8.4.2
     # via -r requirements/test.txt
 python-slugify==8.0.4
     # via
@@ -186,7 +186,7 @@ tomlkit==0.13.3
     # via
     #   -r requirements/test.txt
     #   pylint
-tox==4.29.0
+tox==4.30.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/test.txt
