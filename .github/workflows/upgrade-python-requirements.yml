@@ -17,7 +17,7 @@ jobs:
       python_version: "3.12"
       branch: ${{ github.event.inputs.branch || 'master' }}
       team_reviewers: "2u-arch-bom"
-      email_address: "2u-arch-bom@edx.org"
+      email_address: "arch-bom-upgrade-prs@2u-internal.jsmalerts.atlassian.net"
       send_success_notification: false
     secrets:
       requirements_bot_github_token: ${{ secrets.REQUIREMENTS_BOT_GITHUB_TOKEN }}
