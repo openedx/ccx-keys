@@ -8,7 +8,7 @@ on:
 
 jobs:
   run_tests:
-    name: ${{ matrix.toxenv }}
+    name: Tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
