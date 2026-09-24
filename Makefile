@@ -6,29 +6,14 @@ html_coverage:
 	coverage html && open htmlcov/index.html
 
 quality:
-	tox -e quality
+	uv run tox -e quality
 
 requirements: ## install development environment requirements
-	pip install -qr requirements/pip-tools.txt
-	pip-sync requirements/dev.txt requirements/private.*
+	uv sync --group dev
 
 test:
-	tox
+	uv run tox
 
-COMMON_CONSTRAINTS_TXT=requirements/common_constraints.txt
-.PHONY: $(COMMON_CONSTRAINTS_TXT)
-$(COMMON_CONSTRAINTS_TXT):
-	wget -O "$(@)" https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt || touch "$(@)"
-
-upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: $(COMMON_CONSTRAINTS_TXT)  ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
-	pip install -qr requirements/pip-tools.txt
-	pip-compile --rebuild --upgrade --allow-unsafe -o requirements/pip.txt requirements/pip.in
-	pip-compile --rebuild --upgrade -o requirements/pip-tools.txt requirements/pip-tools.in
-	pip install -qr requirements/pip.txt
-	pip install -qr requirements/pip-tools.txt
-	pip-compile --rebuild --upgrade -o requirements/base.txt requirements/base.in
-	pip-compile --rebuild --upgrade -o requirements/test.txt requirements/test.in
-	pip-compile --rebuild --upgrade -o requirements/ci.txt requirements/ci.in
-	pip-compile --rebuild --upgrade -o requirements/dev.txt requirements/dev.in
-	pip-compile --rebuild --upgrade -o requirements/quality.txt requirements/quality.in
+upgrade: ## update the uv.lock to use the latest releases satisfying our constraints
+	uv run --with edx-lint edx_lint write_uv_constraints pyproject.toml
+	uv lock --upgrade

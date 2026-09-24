@@ -1,0 +1,120 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edx-ccx-keys"
+description = "Opaque key support custom courses on edX"
+readme = "README.rst"
+license = "AGPL-3.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+dynamic = ["version"]
+dependencies = [
+    "edx-opaque-keys>=2.0.0",
+    "six>=1.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/ccx-keys"
+
+[project.entry-points.context_key]
+ccx-v1 = "ccx_keys.locator:CCXLocator"
+
+[project.entry-points.usage_key]
+ccx-block-v1 = "ccx_keys.locator:CCXBlockUsageLocator"
+
+[dependency-groups]
+# Base test packages, no version pins - let uv.lock handle it
+test-base = [
+    "coverage",
+    "ddt",
+    "lazy-object-proxy",
+    "mock",
+    "pytest",
+]
+test = [
+    {include-group = "test-base"},
+]
+quality = [
+    {include-group = "test"},
+    "edx-lint",
+    "pylint",
+    "pycodestyle",
+]
+# Minimal CI group: just what's needed to invoke tox
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+]
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ccx_keys"]
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests*", "*.tests*", "spec*", "*.spec*"]
+
+[tool.uv]
+package = true
+
+#  DO NOT EDIT constraint-dependencies DIRECTLY.
+#  This list is managed by `edx_lint write_uv_constraints`
+#  and will be overwritten the next time `make upgrade` is run.
+#  - GLOBAL constraints: edit edx_lint/files/common_constraints.txt
+#  - REPO-SPECIFIC constraints: edit [tool.edx_lint].uv_constraints in this file
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+]
+
+[tool.edx_lint]
+uv_constraints = []
+
+[tool.semantic_release]
+build_command = "python -m pip install --upgrade build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+major_on_zero = false
+allow_zero_version = true
+tag_format = "v{version}"
+
+[tool.coverage.run]
+branch = true
+source = ["src/ccx_keys"]
+omit = [
+    "*/tests/*",
+    "*/migrations/*",
+    "*/__pycache__/*",
+    "*/settings.py",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
+
+[tool.coverage.html]
+directory = "htmlcov"
