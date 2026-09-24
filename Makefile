@@ -6,9 +6,7 @@ html_coverage:
 	coverage html && open htmlcov/index.html
 
 quality:
-	uv sync --group quality
-	uv run pycodestyle --config=.pep8 src/ccx_keys
-	uv run pylint --rcfile=pylintrc src/ccx_keys
+	uv run tox -e quality
 
 requirements: ## install development environment requirements
 	uv sync --group dev
