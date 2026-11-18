@@ -8,32 +8,28 @@ on:
 
 jobs:
   run_tests:
-    name: Tests
+    name: Build
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    strategy:
-      matrix:
-        python-version: ['3.12']
-        toxenv: [unittest, quality]
     steps:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Install uv
       uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
       with:
-        enable-cache: true
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.12'
 
-    - name: Install dependencies
-      run: uv sync --locked --group ci
+    - name: Build
+      run: uv build
 
-    - name: Run Tests
-      run: uv run --locked tox -e ${{ matrix.toxenv }}
-
-    - name: Run Coverage
-      if: matrix.python-version == '3.12' && matrix.toxenv == 'unittest'
-      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
-      with:
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+    # This package must stay empty: ccx_keys is installed by edx-opaque-keys,
+    # and shipping it here too would make the two distributions conflict.
+    - name: Check that the wheel is empty and depends on edx-opaque-keys
+      run: |
+        unzip -l dist/*.whl
+        if unzip -Z1 dist/*.whl | grep -v '\.dist-info/'; then
+          echo "::error::The wheel contains files outside of its .dist-info directory"
+          exit 1
+        fi
+        unzip -p dist/*.whl '*.dist-info/METADATA' | grep -x 'Requires-Dist: edx-opaque-keys>=5.0.0'

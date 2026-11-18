@@ -5,7 +5,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: 'ccx-keys'
-  description: "ccx-keys provides implementations of the Opaque Key concept specific to Custom Courses for EdX"
+  description: "Empty package. ccx_keys has been merged into opaque-keys."
   links:
     - url: "https://github.com/openedx/ccx-keys"
       title: "CCX Keys"
@@ -15,4 +15,6 @@ metadata:
 spec:
   owner: group:2u-arch-bom
   type: 'service'
-  lifecycle: 'production'
+  # TODO(kdmccormick): archive this repo (and file a DEPR ticket, if needed) once consumers have
+  # dropped edx-ccx-keys from their requirements.
+  lifecycle: 'deprecated'
